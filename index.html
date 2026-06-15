@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vysakh | Redesign Underway</title>
+    <title>Vysakh | Be back soon</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2319171d'/%3E%3Ctext x='50%25' y='55%25' font-family='-apple-system, sans-serif' font-weight='900' font-size='14' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EV%3C/text%3E%3C/svg%3E">
     <style>
         /* --- Reset & Base Styles --- */
         * {
@@ -150,21 +151,17 @@
 </head>
 <body>
 
-    <!-- Soft Ambient Shifting Background -->
     <div class="bg-glow-container">
         <div class="glow-ball one" id="ball1"></div>
         <div class="glow-ball two" id="ball2"></div>
         <div class="glow-ball three" id="ball3"></div>
     </div>
 
-    <!-- UI/UX Designer Content Layer -->
     <div class="content-card">
 
         <h1>Refining my digital space.</h1>
-        <p>I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back online as soon as possible.
-            In the meantime, let's connect.</p>
+        <p>I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back online soon—in the meantime, let's connect.</p>
 
-        <!-- Social & Contact Redirection Buttons -->
         <div class="links-container">
             <a href="mailto:vysakh.official98@gmail.com" class="btn">Email Me</a>
             <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
@@ -173,27 +170,22 @@
         </div>
     </div>
 
-    <!-- Ultra-smooth fluid mouse interaction script -->
     <script>
         const ball1 = document.getElementById('ball1');
         const ball2 = document.getElementById('ball2');
         const ball3 = document.getElementById('ball3');
 
-        // Track targets (mouse position) and current actual locations
         let mouseX = 0, mouseY = 0;
         let currentX1 = 0, currentY1 = 0;
         let currentX2 = 0, currentY2 = 0;
         let currentX3 = 0, currentY3 = 0;
 
         window.addEventListener('mousemove', (e) => {
-            // Normalize mouse coords relative to window center (-0.5 to 0.5)
             mouseX = (e.clientX / window.innerWidth) - 0.5;
             mouseY = (e.clientY / window.innerHeight) - 0.5;
         });
 
         function animate() {
-            // Adjust the multiplier for travel distance. 
-            // Ball 1 moves standard, Ball 2 inverse, Ball 3 subtle offset.
             const targetX1 = mouseX * 180;
             const targetY1 = mouseY * 120;
             
@@ -203,7 +195,6 @@
             const targetX3 = mouseX * 100;
             const targetY3 = mouseY * 190;
 
-            // Fluid easing factor (lower number = smoother, heavier lag)
             const ease = 0.04;
 
             currentX1 += (targetX1 - currentX1) * ease;
@@ -215,7 +206,6 @@
             currentX3 += (targetX3 - currentX3) * ease;
             currentY3 += (targetY3 - currentY3) * ease;
 
-            // Render updates using high-performance 3D translate
             ball1.style.transform = `translate3d(${currentX1}px, ${currentY1}px, 0)`;
             ball2.style.transform = `translate3d(${currentX2}px, ${currentY2}px, 0)`;
             ball3.style.transform = `translate3d(${currentX3}px, ${currentY3}px, 0)`;
@@ -223,7 +213,6 @@
             requestAnimationFrame(animate);
         }
 
-        // Start the elegant requestAnimationFrame loop
         animate();
     </script>
 

@@ -24,7 +24,7 @@
             align-items: center;
         }
 
-        /* --- Clean, Slow, Ambient Motion Background --- */
+        /* --- Clean, Ambient Motion Background with Expanded Travel --- */
         .bg-glow-container {
             position: absolute;
             top: 0;
@@ -33,7 +33,7 @@
             height: 100%;
             z-index: 1;
             overflow: hidden;
-            filter: blur(100px); /* Heavy blur for an ultra-soft aura */
+            filter: blur(120px); /* Slightly increased blur for seamless blend over larger travel distances */
             opacity: 0.55;
             pointer-events: none;
         }
@@ -42,7 +42,6 @@
             position: absolute;
             border-radius: 50%;
             mix-blend-mode: screen;
-            animation: float-around infinite alternate ease-in-out;
         }
 
         /* Ambient Aura 1: Deep Indigo */
@@ -52,7 +51,7 @@
             top: -20%;
             left: -10%;
             background: radial-gradient(circle, rgba(74, 144, 226, 0.35) 0%, rgba(0,0,0,0) 70%);
-            animation-duration: 25s; /* Very slow, calming motion */
+            animation: float-one 25s infinite alternate ease-in-out;
         }
 
         /* Ambient Aura 2: Premium Violet */
@@ -62,7 +61,7 @@
             bottom: -15%;
             right: -10%;
             background: radial-gradient(circle, rgba(155, 81, 224, 0.3) 0%, rgba(0,0,0,0) 70%);
-            animation-duration: 32s;
+            animation: float-two 32s infinite alternate ease-in-out;
             animation-delay: -5s;
         }
 
@@ -73,14 +72,27 @@
             top: 25%;
             left: 35%;
             background: radial-gradient(circle, rgba(224, 81, 184, 0.15) 0%, rgba(0,0,0,0) 70%);
-            animation-duration: 28s;
+            animation: float-three 28s infinite alternate ease-in-out;
             animation-delay: -3s;
         }
 
-        @keyframes float-around {
+        /* Separate keyframes to allow chaotic, non-repeating movement paths across the screen space */
+        @keyframes float-one {
             0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(50px, -40px) scale(1.05); }
-            100% { transform: translate(-30px, 30px) scale(0.95); }
+            50% { transform: translate(120px, -80px) scale(1.1); }
+            100% { transform: translate(-60px, 40px) scale(0.95); }
+        }
+
+        @keyframes float-two {
+            0% { transform: translate(0px, 0px) scale(0.95); }
+            50% { transform: translate(-140px, -60px) scale(1.05); }
+            100% { transform: translate(80px, 90px) scale(1); }
+        }
+
+        @keyframes float-three {
+            0% { transform: translate(0px, 0px) scale(1); }
+            50% { transform: translate(70px, 110px) scale(0.9); }
+            100% { transform: translate(-100px, -50px) scale(1.1); }
         }
 
         /* --- Minimal Content Layer --- */
@@ -97,31 +109,6 @@
         @keyframes cardReveal {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- Smooth, Clean Minimal Progress Loader --- */
-        .loader-track {
-            width: 64px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            margin: 0 auto 2.5rem auto;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .loader-bar {
-            width: 40%;
-            height: 100%;
-            background: linear-gradient(90deg, #9b51e0, #e051b8);
-            border-radius: 10px;
-            position: absolute;
-            animation: fluid-load 2.5s ease-in-out infinite alternate;
-        }
-
-        @keyframes fluid-load {
-            0% { left: 0%; width: 30%; }
-            100% { left: 70%; width: 30%; }
         }
 
         /* Typography */
@@ -193,11 +180,6 @@
 
     <!-- UI/UX Designer Content Layer -->
     <div class="content-card">
-        
-        <!-- Elegant, low-profile minimal loader line -->
-        <div class="loader-track">
-            <div class="loader-bar"></div>
-        </div>
 
         <h1>Refining my digital space.</h1>
         <p>I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back online soon—in the meantime, let's connect.</p>

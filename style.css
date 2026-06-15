@@ -1,4 +1,82 @@
 body{
     margin:0;
-    background:#6cc6ef;
+    overflow:hidden;
+    font-family:Arial,sans-serif;
+}
+
+.game-screen{
+    width:100vw;
+    height:100vh;
+}
+
+.sky{
+    height:80vh;
+    background:#78d7ff;
+    position:relative;
+}
+
+.hero{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+}
+
+.hero h1{
+    font-size:72px;
+    margin:0;
+    color:#ffd600;
+    text-shadow:
+    4px 4px 0 #000;
+}
+
+.hero h2{
+    color:white;
+}
+
+.hero p{
+    color:white;
+}
+
+.start-btn{
+    margin-top:20px;
+    padding:16px 32px;
+    border:none;
+    background:#ffd600;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.cloud{
+    position:absolute;
+    width:120px;
+    height:50px;
+    background:white;
+    border-radius:50px;
+}
+
+.cloud1{
+    top:100px;
+    left:10%;
+}
+
+.cloud2{
+    top:200px;
+    right:20%;
+}
+
+.cloud3{
+    top:150px;
+    left:70%;
+}
+
+.grass{
+    height:40px;
+    background:#4caf50;
+}
+
+.ground{
+    height:16vh;
+    background:#8d5a3b;
 }

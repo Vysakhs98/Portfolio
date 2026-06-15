@@ -25,7 +25,7 @@
             align-items: center;
         }
 
-        /* --- Clean, Mouse-Reactive Motion Background --- */
+        /* --- Clean, Motion Background --- */
         .bg-glow-container {
             position: absolute;
             top: 0;
@@ -43,7 +43,7 @@
             position: absolute;
             border-radius: 50%;
             mix-blend-mode: screen;
-            /* Using hardware acceleration transform for butter-smooth mouse movement */
+            /* Using hardware acceleration transform for butter-smooth movement */
             transform: translate3d(0, 0, 0); 
             will-change: transform;
         }
@@ -291,45 +291,30 @@
     </footer>
 
     <script>
-        // --- Ambient Background Controller ---
+        // --- Ambient Background Controller (Autonomous Fluid Movement) ---
         const ball1 = document.getElementById('ball1');
         const ball2 = document.getElementById('ball2');
         const ball3 = document.getElementById('ball3');
 
-        let mouseX = 0, mouseY = 0;
-        let currentX1 = 0, currentY1 = 0;
-        let currentX2 = 0, currentY2 = 0;
-        let currentX3 = 0, currentY3 = 0;
+        function animateBackground(time) {
+            const t = time * 0.0004;
 
-        window.addEventListener('mousemove', (e) => {
-            mouseX = (e.clientX / window.innerWidth) - 0.5;
-            mouseY = (e.clientY / window.innerHeight) - 0.5;
-        });
+            const x1 = Math.sin(t * 0.7) * 90;
+            const y1 = Math.cos(t * 0.5) * 60;
 
-        function animateBackground() {
-            const targetX1 = mouseX * 180;
-            const targetY1 = mouseY * 120;
-            const targetX2 = mouseX * -150;
-            const targetY2 = mouseY * -150;
-            const targetX3 = mouseX * 100;
-            const targetY3 = mouseY * 190;
+            const x2 = Math.cos(t * 0.6) * -75;
+            const y2 = Math.sin(t * 0.8) * -75;
 
-            const ease = 0.04;
+            const x3 = Math.sin(t * 0.5) * 50;
+            const y3 = Math.cos(t * 0.7) * 95;
 
-            currentX1 += (targetX1 - currentX1) * ease;
-            currentY1 += (targetY1 - currentY1) * ease;
-            currentX2 += (targetX2 - currentX2) * ease;
-            currentY2 += (targetY2 - currentY2) * ease;
-            currentX3 += (targetX3 - currentX3) * ease;
-            currentY3 += (targetY3 - currentY3) * ease;
-
-            ball1.style.transform = `translate3d(${currentX1}px, ${currentY1}px, 0)`;
-            ball2.style.transform = `translate3d(${currentX2}px, ${currentY2}px, 0)`;
-            ball3.style.transform = `translate3d(${currentX3}px, ${currentY3}px, 0)`;
+            ball1.style.transform = `translate3d(${x1}px, ${y1}px, 0)`;
+            ball2.style.transform = `translate3d(${x2}px, ${y2}px, 0)`;
+            ball3.style.transform = `translate3d(${x3}px, ${y3}px, 0)`;
 
             requestAnimationFrame(animateBackground);
         }
-        animateBackground();
+        requestAnimationFrame(animateBackground);
 
         // --- Clipboard Micro-Interaction ---
         const emailBtn = document.getElementById('email-btn');
@@ -371,6 +356,5 @@
         refreshClock();
         setInterval(refreshClock, 1000);
     </script>
-
 </body>
 </html>

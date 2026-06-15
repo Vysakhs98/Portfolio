@@ -168,33 +168,33 @@
             text-transform: uppercase;
         }
 
-        /* Linear shine sweep restricted exactly inside text paths via background-clip mask */
+        /* Premium mask tracking providing a fully continuous linear shine clip over all typography nodes */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
             display: inline-block;
             
-            /* Text base matches clock #6c727a with a white flash gradient passing through */
+            /* Enhanced gradient spectrum width prevents sticking at boundaries */
             background: linear-gradient(
-                90deg, 
+                75deg, 
                 #6c727a 0%, 
-                #6c727a 40%, 
+                #6c727a 45%, 
                 #ffffff 50%, 
-                #6c727a 60%, 
+                #6c727a 55%, 
                 #6c727a 100%
             );
-            background-size: 200% auto;
+            background-size: 300% auto;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            animation: elegantLetterSweep 4.5s ease-in-out infinite;
+            animation: elegantLetterSweep 5s cubic-bezier(0.25, 1, 0.5, 1) infinite;
         }
 
         @keyframes elegantLetterSweep {
-            0% { background-position: 100% center; }
-            25%, 100% { background-position: -100% center; }
+            0% { background-position: 200% center; }
+            30%, 100% { background-position: -100% center; }
         }
 
         /* Clock Base */
@@ -367,6 +367,5 @@
         refreshClock();
         setInterval(refreshClock, 1000);
     </script>
-
 </body>
 </html>

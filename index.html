@@ -168,12 +168,38 @@
             text-transform: uppercase;
         }
 
-        /* Updated Name Styling: Set to match the exact color as the clock utility */
+        /* Matches time color perfectly while throwing a subtle reflection overlay layout */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
             color: #6c727a;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        /* Elegant Shimmer Element Over exact color base */
+        .brand-owner::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.25) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: skewX(-25deg);
+            animation: elegantSweep 4.5s ease-in-out infinite;
+        }
+
+        @keyframes elegantSweep {
+            0% { left: -150%; }
+            25%, 100% { left: 150%; }
         }
 
         /* Clock Base */
@@ -287,10 +313,8 @@
         const ball3 = document.getElementById('ball3');
 
         function animateBackground(time) {
-            // Decoupled parametric frequencies using the elapsed time factor
             const t = time * 0.0004;
 
-            // Autonomous movement vectors matching your original design travel distances
             const x1 = Math.sin(t * 0.7) * 90;
             const y1 = Math.cos(t * 0.5) * 60;
 

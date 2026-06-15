@@ -168,12 +168,22 @@
             text-transform: uppercase;
         }
 
-        /* Updated Name Styling: Set to match the exact color as the clock utility */
+        /* Elevated Name Style + Premium Infinite Light Sweep */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
-            color: #6c727a;
+            background: linear-gradient(105deg, #a5adb8 30%, #ffffff 50%, #a5adb8 70%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: elegantSweep 4.5s ease-in-out infinite;
+        }
+
+        @keyframes elegantSweep {
+            0% { background-position: 200% center; }
+            30%, 100% { background-position: -50% center; }
         }
 
         /* Clock Base */

@@ -1,119 +1,114 @@
 const player = document.getElementById("player");
-const world = document.getElementById("world");
-const counter = document.getElementById("artifactCount");
+const counter = document.getElementById("artifact-count");
+const winModal = document.getElementById("win-modal");
 
-let playerX = 100;
+let x = 150;
+let y = 500;
 let collected = 0;
 
 const speed = 12;
+const keys = {};
 
-const keys = {
-    a:false,
-    d:false
-};
-
-document.addEventListener("keydown",(e)=>{
-    const key = e.key.toLowerCase();
-
-    if(key==="a"){
-        keys.a=true;
-    }
-
-    if(key==="d"){
-        keys.d=true;
-    }
+document.addEventListener("keydown", (e) => {
+    keys[e.key] = true;
 });
 
-document.addEventListener("keyup",(e)=>{
-    const key = e.key.toLowerCase();
-
-    if(key==="a"){
-        keys.a=false;
-    }
-
-    if(key==="d"){
-        keys.d=false;
-    }
+document.addEventListener("keyup", (e) => {
+    keys[e.key] = false;
 });
 
-function updatePlayer(){
+function movePlayer() {
 
-    if(keys.a){
-        playerX -= speed;
-    }
+    if (keys["ArrowLeft"]) x -= speed;
+    if (keys["ArrowRight"]) x += speed;
+    if (keys["ArrowUp"]) y -= speed;
+    if (keys["ArrowDown"]) y += speed;
 
-    if(keys.d){
-        playerX += speed;
-    }
+    const maxX = 4500;
+    const minX = 0;
 
-    if(playerX < 0){
-        playerX = 0;
-    }
+    const maxY = 650;
+    const minY = 200;
 
-    if(playerX > 4600){
-        playerX = 4600;
-    }
+    x = Math.max(minX, Math.min(maxX, x));
+    y = Math.max(minY, Math.min(maxY, y));
 
-    player.style.left = playerX + "px";
+    player.style.left = x + "px";
+    player.style.top = y + "px";
 
-    const cameraX =
-        Math.max(
-            0,
-            playerX - window.innerWidth / 2
-        );
+    checkCollectibles();
 
-    world.style.transform =
-        `translateX(-${cameraX}px)`;
-
-    checkArtifacts();
-
-    requestAnimationFrame(updatePlayer);
+    requestAnimationFrame(movePlayer);
 }
 
-function checkArtifacts(){
+function generateArtifacts() {
+
+    const world = document.getElementById("world");
+
+    const icons = [
+        "🎨","💡","📱","✨",
+        "🚀","⚡","🖥️","🎯"
+    ];
+
+    for(let i=0;i<24;i++){
+
+        const item = document.createElement("div");
+
+        item.className = "artifact";
+
+        item.innerHTML =
+            icons[Math.floor(Math.random()*icons.length)];
+
+        item.style.left =
+            (400 + Math.random()*4200) + "px";
+
+        item.style.top =
+            (250 + Math.random()*350) + "px";
+
+        world.appendChild(item);
+    }
+}
+
+function checkCollectibles(){
 
     const artifacts =
         document.querySelectorAll(".artifact");
 
-    artifacts.forEach((artifact)=>{
+    artifacts.forEach(item=>{
 
-        if(artifact.dataset.collected){
-            return;
-        }
+        if(item.dataset.collected) return;
 
-        const artifactX =
-            parseInt(
-                artifact.dataset.x
-            );
+        const ax = item.offsetLeft;
+        const ay = item.offsetTop;
 
-        if(
-            Math.abs(playerX-artifactX)
-            < 70
-        ){
+        const dx = ax - x;
+        const dy = ay - y;
 
-            artifact.dataset.collected =
-                "true";
+        const distance =
+            Math.sqrt(dx*dx + dy*dy);
 
-            artifact.style.display =
-                "none";
+        if(distance < 70){
+
+            item.style.display = "none";
+
+            item.dataset.collected = true;
 
             collected++;
 
             counter.textContent =
-                collected + " / 24";
+                `${collected} / 24`;
 
-            if(collected===24){
-
-                document
-                    .getElementById(
-                        "portal"
-                    )
-                    .classList.add(
-                        "portal-active"
-                    );
+            if(collected === 24){
+                showWinScreen();
             }
         }
     });
 }
 
-updatePlayer();
+function showWinScreen(){
+
+    winModal.style.display = "flex";
+}
+
+generateArtifacts();
+movePlayer();

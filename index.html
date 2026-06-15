@@ -25,7 +25,7 @@
             align-items: center;
         }
 
-        /* --- Clean, Automated Motion Background --- */
+        /* --- Clean, Motion Background --- */
         .bg-glow-container {
             position: absolute;
             top: 0;
@@ -43,56 +43,36 @@
             position: absolute;
             border-radius: 50%;
             mix-blend-mode: screen;
+            /* Using hardware acceleration transform for butter-smooth movement */
+            transform: translate3d(0, 0, 0); 
             will-change: transform;
         }
 
-        /* Ambient Aura 1: Deep Indigo (Automated Floating) */
+        /* Ambient Aura 1: Deep Indigo */
         .glow-ball.one {
             width: 65vw;
             height: 65vw;
             top: -20%;
             left: -10%;
             background: radial-gradient(circle, rgba(74, 144, 226, 0.35) 0%, rgba(0,0,0,0) 70%);
-            animation: floatOrbOne 22s ease-in-out infinite alternate;
         }
 
-        /* Ambient Aura 2: Premium Violet (Automated Floating) */
+        /* Ambient Aura 2: Premium Violet */
         .glow-ball.two {
             width: 55vw;
             height: 55vw;
             bottom: -15%;
             right: -10%;
             background: radial-gradient(circle, rgba(155, 81, 224, 0.3) 0%, rgba(0,0,0,0) 70%);
-            animation: floatOrbTwo 26s ease-in-out infinite alternate;
         }
 
-        /* Ambient Aura 3: Soft Fuchsia Accent (Automated Floating) */
+        /* Ambient Aura 3: Soft Fuchsia Accent */
         .glow-ball.three {
             width: 45vw;
             height: 45vw;
             top: 25%;
             left: 35%;
             background: radial-gradient(circle, rgba(224, 81, 184, 0.15) 0%, rgba(0,0,0,0) 70%);
-            animation: floatOrbThree 18s ease-in-out infinite alternate;
-        }
-
-        /* Fluid CSS Kinetic Paths */
-        @keyframes floatOrbOne {
-            0% { transform: translate3d(0px, 0px, 0) scale(1); }
-            50% { transform: translate3d(80px, 60px, 0) scale(1.1); }
-            100% { transform: translate3d(-40px, 110px, 0) scale(0.95); }
-        }
-
-        @keyframes floatOrbTwo {
-            0% { transform: translate3d(0px, 0px, 0) scale(1); }
-            40% { transform: translate3d(-90px, -50px, 0) scale(0.9); }
-            100% { transform: translate3d(50px, -100px, 0) scale(1.15); }
-        }
-
-        @keyframes floatOrbThree {
-            0% { transform: translate3d(0px, 0px, 0) scale(1); }
-            60% { transform: translate3d(60px, -80px, 0) scale(1.05); }
-            100% { transform: translate3d(-70px, 40px, 0) scale(0.9); }
         }
 
         /* --- Minimal Content Layer --- */
@@ -188,6 +168,7 @@
             text-transform: uppercase;
         }
 
+        /* Updated Name Styling: Set to match the exact color as the clock utility */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
@@ -272,9 +253,9 @@
     </header>
 
     <div class="bg-glow-container">
-        <div class="glow-ball one"></div>
-        <div class="glow-ball two"></div>
-        <div class="glow-ball three"></div>
+        <div class="glow-ball one" id="ball1"></div>
+        <div class="glow-ball two" id="ball2"></div>
+        <div class="glow-ball three" id="ball3"></div>
     </div>
 
     <div class="content-card">
@@ -300,6 +281,33 @@
     </footer>
 
     <script>
+        // --- Ambient Background Controller (Autonomous Movement) ---
+        const ball1 = document.getElementById('ball1');
+        const ball2 = document.getElementById('ball2');
+        const ball3 = document.getElementById('ball3');
+
+        function animateBackground(time) {
+            // Decoupled parametric frequencies using the elapsed time factor
+            const t = time * 0.0004;
+
+            // Autonomous movement vectors matching your original design travel distances
+            const x1 = Math.sin(t * 0.7) * 90;
+            const y1 = Math.cos(t * 0.5) * 60;
+
+            const x2 = Math.cos(t * 0.6) * -75;
+            const y2 = Math.sin(t * 0.8) * -75;
+
+            const x3 = Math.sin(t * 0.5) * 50;
+            const y3 = Math.cos(t * 0.7) * 95;
+
+            ball1.style.transform = `translate3d(${x1}px, ${y1}px, 0)`;
+            ball2.style.transform = `translate3d(${x2}px, ${y2}px, 0)`;
+            ball3.style.transform = `translate3d(${x3}px, ${y3}px, 0)`;
+
+            requestAnimationFrame(animateBackground);
+        }
+        requestAnimationFrame(animateBackground);
+
         // --- Clipboard Micro-Interaction ---
         const emailBtn = document.getElementById('email-btn');
         emailBtn.addEventListener('click', () => {

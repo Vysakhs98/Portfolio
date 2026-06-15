@@ -83,12 +83,55 @@
             padding: 2.5rem;
             max-width: 560px;
             width: 90%;
-            animation: cardReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes cardReveal {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* --- Micro Interaction: Staggered Intros --- */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: cubicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes cubicReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-0 { animation-delay: 0.1s; }
+        .delay-1 { animation-delay: 0.25s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.55s; }
+
+        /* --- Availability Badge --- */
+        .availability-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 0.45rem 0.9rem;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #a1a7b0;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.8rem;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #34c759;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #34c759;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
         }
 
         /* Typography */
@@ -129,6 +172,7 @@
             font-size: 0.9rem;
             font-weight: 400;
             letter-spacing: 0.01em;
+            cursor: pointer;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -140,16 +184,57 @@
             box-shadow: 0 4px 15px rgba(155, 81, 224, 0.1);
         }
 
+        /* --- Header & Footer Utilities --- */
+        .utility-header {
+            position: absolute;
+            top: 2rem;
+            left: 0;
+            width: 100%;
+            padding: 0 2.5rem;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 3;
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #6c727a;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .utility-footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            width: 100%;
+            padding: 0 2.5rem;
+            display: flex;
+            justify-content: center;
+            z-index: 3;
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: #6c727a;
+            letter-spacing: 0.02em;
+        }
+
+        .utility-footer em {
+            color: #9aa0a6;
+            font-style: normal;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 480px) {
             h1 { font-size: 1.9rem; }
             p { font-size: 0.95rem; }
             .links-container { flex-direction: column; width: 100%; }
             .btn { justify-content: center; }
+            .utility-header { justify-content: center; top: 1.5rem; }
+            .utility-footer { bottom: 1.5rem; text-align: center; padding: 0 1.5rem; }
         }
     </style>
 </head>
 <body>
+
+    <header class="utility-header" id="local-clock">Bengaluru, IN — 00:00 AM</header>
 
     <div class="bg-glow-container">
         <div class="glow-ball one" id="ball1"></div>
@@ -158,19 +243,31 @@
     </div>
 
     <div class="content-card">
+        
+        <div class="reveal-item delay-0">
+            <div class="availability-badge">
+                <span class="status-dot"></span>
+                Available for freelance opportunities
+            </div>
+        </div>
 
-        <h1>Refining my digital space.</h1>
-        <p>I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon <br>And in the meantime, let's connect.</br></p>
+        <h1 class="reveal-item delay-1">Refining my digital space.</h1>
+        <p class="reveal-item delay-2">I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon.<br>And in the meantime, let's connect.</p>
 
-        <div class="links-container">
-            <a href="mailto:vysakh.official98@gmail.com" class="btn">Email Me</a>
+        <div class="links-container reveal-item delay-3">
+            <button class="btn" id="email-btn" data-email="vysakh.official98@gmail.com">Email Me</button>
             <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
             <a href="https://www.behance.net/Vysakh_98" target="_blank" rel="noopener" class="btn">Behance</a>
             <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
         </div>
     </div>
 
+    <footer class="utility-footer">
+        <span>Currently designing interfaces & exploring advanced digital interactions.</span>
+    </footer>
+
     <script>
+        // --- Ambient Background Controller ---
         const ball1 = document.getElementById('ball1');
         const ball2 = document.getElementById('ball2');
         const ball3 = document.getElementById('ball3');
@@ -185,13 +282,11 @@
             mouseY = (e.clientY / window.innerHeight) - 0.5;
         });
 
-        function animate() {
+        function animateBackground() {
             const targetX1 = mouseX * 180;
             const targetY1 = mouseY * 120;
-            
             const targetX2 = mouseX * -150;
             const targetY2 = mouseY * -150;
-            
             const targetX3 = mouseX * 100;
             const targetY3 = mouseY * 190;
 
@@ -199,10 +294,8 @@
 
             currentX1 += (targetX1 - currentX1) * ease;
             currentY1 += (targetY1 - currentY1) * ease;
-
             currentX2 += (targetX2 - currentX2) * ease;
             currentY2 += (targetY2 - currentY2) * ease;
-
             currentX3 += (targetX3 - currentX3) * ease;
             currentY3 += (targetY3 - currentY3) * ease;
 
@@ -210,10 +303,46 @@
             ball2.style.transform = `translate3d(${currentX2}px, ${currentY2}px, 0)`;
             ball3.style.transform = `translate3d(${currentX3}px, ${currentY3}px, 0)`;
 
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateBackground);
         }
+        animateBackground();
 
-        animate();
+        // --- Clipboard Micro-Interaction ---
+        const emailBtn = document.getElementById('email-btn');
+        emailBtn.addEventListener('click', () => {
+            const targetEmail = emailBtn.getAttribute('data-email');
+            navigator.clipboard.writeText(targetEmail).then(() => {
+                emailBtn.textContent = 'Copied to Clipboard!';
+                emailBtn.style.borderColor = 'rgba(52, 199, 89, 0.4)';
+                
+                setTimeout(() => {
+                    emailBtn.textContent = 'Email Me';
+                    emailBtn.style.borderColor = '';
+                }, 2000);
+            }).catch(() => {
+                // Fallback process if browser environment locks clipboard APIs
+                window.location.href = `mailto:${targetEmail}`;
+            });
+        });
+
+        // --- Real-time Regional Clock Generator ---
+        function refreshClock() {
+            const clockNode = document.getElementById('local-clock');
+            try {
+                const config = {
+                    timeZone: 'Asia/Kolkata',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true
+                };
+                const localizedTime = new Intl.DateTimeFormat('en-US', config).format(new Date());
+                clockNode.textContent = `Bengaluru, IN — ${localizedTime}`;
+            } catch (err) {
+                clockNode.style.display = 'none';
+            }
+        }
+        refreshClock();
+        setInterval(refreshClock, 30000); // Efficient interval sequence refresh
     </script>
 
 </body>

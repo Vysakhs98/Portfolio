@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,33 +12,56 @@
 
 <body>
 
-<div id="win-modal" class="win-modal">
+<div class="hud">
+    <h1>VYSAKH'S QUEST</h1>
+    <p>Website Under Reconstruction</p>
 
-    <div class="win-box">
+    <div id="counter">
+        Artifacts: 0 / 24
+    </div>
+</div>
+
+<div id="world">
+
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+
+    <div id="player" class="player">
+        <img src="avatar.png" alt="Vysakh">
+    </div>
+
+</div>
+
+<div id="winModal" class="modal">
+
+    <div class="modal-content">
 
         <h2>MISSION COMPLETE</h2>
 
         <p>
-            You recovered all design artifacts.
-            My portfolio is still under construction,
-            but let's connect.
+            You recovered all 24 design artifacts.
         </p>
 
-        <div class="links">
+        <p>
+            My portfolio is currently being rebuilt.
+            Let's connect meanwhile.
+        </p>
+
+        <div class="contact-links">
 
             <a href="mailto:vysakh.official98@gmail.com">
                 Email
             </a>
 
-            <a href="https://wa.me/917022017654">
+            <a href="https://wa.me/917022017654" target="_blank">
                 WhatsApp
             </a>
 
-            <a href="https://www.behance.net/Vysakh_98">
+            <a href="https://www.behance.net/Vysakh_98" target="_blank">
                 Behance
             </a>
 
-            <a href="https://www.linkedin.com/in/vysakhdesigns/">
+            <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank">
                 LinkedIn
             </a>
 
@@ -46,189 +70,8 @@
     </div>
 
 </div>
-    
-<div class="hud">
 
-    <h3>VYSAKH'S QUEST</h3>
-
-    <br>
-
-    <div>LEVEL 99 DESIGNER KNIGHT</div>
-
-    <br>
-
-    <div id="artifactCount">
-        0 / 24
-    </div>
-
-</div>
-
-<div id="world">
-
-    <!-- SKY OBJECTS -->
-
-    <div style="
-        position:absolute;
-        top:80px;
-        left:300px;
-        font-size:60px;
-    ">
-        ☁️
-    </div>
-
-    <div style="
-        position:absolute;
-        top:120px;
-        left:1200px;
-        font-size:60px;
-    ">
-        ☁️
-    </div>
-
-    <div style="
-        position:absolute;
-        top:70px;
-        left:2600px;
-        font-size:60px;
-    ">
-        ☁️
-    </div>
-
-    <div style="
-        position:absolute;
-        top:100px;
-        left:4100px;
-        font-size:60px;
-    ">
-        ☁️
-    </div>
-
-    <!-- PLAYER -->
-
-    <div
-        id="player"
-        class="player"
-        style="left:100px;"
-    >
-
-        <img
-            src="avatar.png"
-            alt="Vysakh"
-        >
-
-    </div>
-
-    <!-- ARTIFACTS -->
-
-    <div class="artifact" data-x="500" style="left:500px;">📜</div>
-
-    <div class="artifact" data-x="800" style="left:800px;">💎</div>
-
-    <div class="artifact" data-x="1100" style="left:1100px;">🗝️</div>
-
-    <div class="artifact" data-x="1400" style="left:1400px;">⚔️</div>
-
-    <div class="artifact" data-x="1700" style="left:1700px;">📘</div>
-
-    <div class="artifact" data-x="2000" style="left:2000px;">📜</div>
-
-    <div class="artifact" data-x="2300" style="left:2300px;">💎</div>
-
-    <div class="artifact" data-x="2600" style="left:2600px;">🗝️</div>
-
-    <div class="artifact" data-x="2900" style="left:2900px;">⚔️</div>
-
-    <div class="artifact" data-x="3200" style="left:3200px;">📘</div>
-
-    <div class="artifact" data-x="3500" style="left:3500px;">📜</div>
-
-    <div class="artifact" data-x="3800" style="left:3800px;">💎</div>
-
-    <div class="artifact" data-x="4100" style="left:4100px;">🗝️</div>
-
-    <div class="artifact" data-x="4400" style="left:4400px;">⚔️</div>
-
-    <div class="artifact" data-x="4700" style="left:4700px;">📘</div>
-
-    <!-- DUPLICATES TO REACH 24 -->
-
-    <div class="artifact" data-x="650" style="left:650px;">⭐</div>
-    <div class="artifact" data-x="950" style="left:950px;">⭐</div>
-    <div class="artifact" data-x="1250" style="left:1250px;">⭐</div>
-    <div class="artifact" data-x="1550" style="left:1550px;">⭐</div>
-    <div class="artifact" data-x="1850" style="left:1850px;">⭐</div>
-    <div class="artifact" data-x="2150" style="left:2150px;">⭐</div>
-    <div class="artifact" data-x="2450" style="left:2450px;">⭐</div>
-    <div class="artifact" data-x="2750" style="left:2750px;">⭐</div>
-    <div class="artifact" data-x="3050" style="left:3050px;">⭐</div>
-
-    <!-- PORTAL -->
-
-    <div
-        id="portal"
-        class="portal"
-    >
-        CONTACT
-        <br>
-        PORTAL
-    </div>
-
-    <!-- CASTLE -->
-
-    <div style="
-        position:absolute;
-        right:80px;
-        bottom:150px;
-        font-size:120px;
-    ">
-        🏰
-    </div>
-
-    <!-- FOREST -->
-
-    <div style="
-        position:absolute;
-        left:900px;
-        bottom:150px;
-        font-size:90px;
-    ">
-        🌲
-    </div>
-
-    <div style="
-        position:absolute;
-        left:1800px;
-        bottom:150px;
-        font-size:90px;
-    ">
-        🌲
-    </div>
-
-    <div style="
-        position:absolute;
-        left:3000px;
-        bottom:150px;
-        font-size:90px;
-    ">
-        🌲
-    </div>
-
-    <div style="
-        position:absolute;
-        left:4200px;
-        bottom:150px;
-        font-size:90px;
-    ">
-        🌲
-    </div>
-
-    <!-- TERRAIN -->
-
-    <div class="grass"></div>
-
-    <div class="ground"></div>
-
-</div>
+<script src="script.js"></script>
 
 </body>
 </html>

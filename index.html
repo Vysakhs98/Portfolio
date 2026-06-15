@@ -25,7 +25,7 @@
             align-items: center;
         }
 
-        /* --- Clean, Motion Background --- */
+        /* --- Clean, Mouse-Reactive Motion Background --- */
         .bg-glow-container {
             position: absolute;
             top: 0;
@@ -43,7 +43,7 @@
             position: absolute;
             border-radius: 50%;
             mix-blend-mode: screen;
-            /* Using hardware acceleration transform for butter-smooth movement */
+            /* Using hardware acceleration transform for butter-smooth mouse movement */
             transform: translate3d(0, 0, 0); 
             will-change: transform;
         }
@@ -168,36 +168,12 @@
             text-transform: uppercase;
         }
 
-        /* Premium masked tracking providing a fully continuous linear shine clip over all typography nodes */
+        /* Updated Name Styling: Set to match the exact color as the clock utility */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
-            display: inline-block;
-            
-            /* Refined gradient configuration to keep standard letters perfectly colored #6c727a */
-            background: linear-gradient(
-                75deg, 
-                rgba(108, 114, 122, 1) 0%, 
-                rgba(108, 114, 122, 1) 42%, 
-                rgba(255, 255, 255, 1) 50%, 
-                rgba(108, 114, 122, 1) 58%, 
-                rgba(108, 114, 122, 1) 100%
-            );
-            /* Fixed explicit pixel background sizing handles width changes smoothly */
-            background-size: 350px 100%;
-            background-repeat: no-repeat;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            
-            /* Custom cubic-bezier ensures smooth easing in and out for a premium fluid motion */
-            animation: elegantLetterSweep 6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
-        }
-
-        @keyframes elegantLetterSweep {
-            0% { background-position: -150px center; }
-            28%, 100% { background-position: 250px center; }
+            color: #6c727a;
         }
 
         /* Clock Base */
@@ -305,30 +281,45 @@
     </footer>
 
     <script>
-        // --- Ambient Background Controller (Autonomous Movement) ---
+        // --- Ambient Background Controller ---
         const ball1 = document.getElementById('ball1');
         const ball2 = document.getElementById('ball2');
         const ball3 = document.getElementById('ball3');
 
-        function animateBackground(time) {
-            const t = time * 0.0004;
+        let mouseX = 0, mouseY = 0;
+        let currentX1 = 0, currentY1 = 0;
+        let currentX2 = 0, currentY2 = 0;
+        let currentX3 = 0, currentY3 = 0;
 
-            const x1 = Math.sin(t * 0.7) * 90;
-            const y1 = Math.cos(t * 0.5) * 60;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
 
-            const x2 = Math.cos(t * 0.6) * -75;
-            const y2 = Math.sin(t * 0.8) * -75;
+        function animateBackground() {
+            const targetX1 = mouseX * 180;
+            const targetY1 = mouseY * 120;
+            const targetX2 = mouseX * -150;
+            const targetY2 = mouseY * -150;
+            const targetX3 = mouseX * 100;
+            const targetY3 = mouseY * 190;
 
-            const x3 = Math.sin(t * 0.5) * 50;
-            const y3 = Math.cos(t * 0.7) * 95;
+            const ease = 0.04;
 
-            ball1.style.transform = `translate3d(${x1}px, ${y1}px, 0)`;
-            ball2.style.transform = `translate3d(${x2}px, ${y2}px, 0)`;
-            ball3.style.transform = `translate3d(${x3}px, ${y3}px, 0)`;
+            currentX1 += (targetX1 - currentX1) * ease;
+            currentY1 += (targetY1 - currentY1) * ease;
+            currentX2 += (targetX2 - currentX2) * ease;
+            currentY2 += (targetY2 - currentY2) * ease;
+            currentX3 += (targetX3 - currentX3) * ease;
+            currentY3 += (targetY3 - currentY3) * ease;
+
+            ball1.style.transform = `translate3d(${currentX1}px, ${currentY1}px, 0)`;
+            ball2.style.transform = `translate3d(${currentX2}px, ${currentY2}px, 0)`;
+            ball3.style.transform = `translate3d(${currentX3}px, ${currentY3}px, 0)`;
 
             requestAnimationFrame(animateBackground);
         }
-        requestAnimationFrame(animateBackground);
+        animateBackground();
 
         // --- Clipboard Micro-Interaction ---
         const emailBtn = document.getElementById('email-btn');
@@ -370,5 +361,6 @@
         refreshClock();
         setInterval(refreshClock, 1000);
     </script>
+
 </body>
 </html>

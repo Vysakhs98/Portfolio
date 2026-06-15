@@ -24,7 +24,7 @@
             align-items: center;
         }
 
-        /* --- Clean, Ambient Motion Background with Expanded Travel --- */
+        /* --- Clean, Mouse-Reactive Motion Background --- */
         .bg-glow-container {
             position: absolute;
             top: 0;
@@ -33,7 +33,7 @@
             height: 100%;
             z-index: 1;
             overflow: hidden;
-            filter: blur(120px); /* Slightly increased blur for seamless blend over larger travel distances */
+            filter: blur(130px); /* Heavy blur for seamless blend over larger travel distances */
             opacity: 0.55;
             pointer-events: none;
         }
@@ -42,6 +42,9 @@
             position: absolute;
             border-radius: 50%;
             mix-blend-mode: screen;
+            /* Using hardware acceleration transform for butter-smooth mouse movement */
+            transform: translate3d(0, 0, 0); 
+            will-change: transform;
         }
 
         /* Ambient Aura 1: Deep Indigo */
@@ -51,7 +54,6 @@
             top: -20%;
             left: -10%;
             background: radial-gradient(circle, rgba(74, 144, 226, 0.35) 0%, rgba(0,0,0,0) 70%);
-            animation: float-one 25s infinite alternate ease-in-out;
         }
 
         /* Ambient Aura 2: Premium Violet */
@@ -61,8 +63,6 @@
             bottom: -15%;
             right: -10%;
             background: radial-gradient(circle, rgba(155, 81, 224, 0.3) 0%, rgba(0,0,0,0) 70%);
-            animation: float-two 32s infinite alternate ease-in-out;
-            animation-delay: -5s;
         }
 
         /* Ambient Aura 3: Soft Fuchsia Accent */
@@ -72,27 +72,6 @@
             top: 25%;
             left: 35%;
             background: radial-gradient(circle, rgba(224, 81, 184, 0.15) 0%, rgba(0,0,0,0) 70%);
-            animation: float-three 28s infinite alternate ease-in-out;
-            animation-delay: -3s;
-        }
-
-        /* Separate keyframes to allow chaotic, non-repeating movement paths across the screen space */
-        @keyframes float-one {
-            0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(120px, -80px) scale(1.1); }
-            100% { transform: translate(-60px, 40px) scale(0.95); }
-        }
-
-        @keyframes float-two {
-            0% { transform: translate(0px, 0px) scale(0.95); }
-            50% { transform: translate(-140px, -60px) scale(1.05); }
-            100% { transform: translate(80px, 90px) scale(1); }
-        }
-
-        @keyframes float-three {
-            0% { transform: translate(0px, 0px) scale(1); }
-            50% { transform: translate(70px, 110px) scale(0.9); }
-            100% { transform: translate(-100px, -50px) scale(1.1); }
         }
 
         /* --- Minimal Content Layer --- */
@@ -173,9 +152,9 @@
 
     <!-- Soft Ambient Shifting Background -->
     <div class="bg-glow-container">
-        <div class="glow-ball one"></div>
-        <div class="glow-ball two"></div>
-        <div class="glow-ball three"></div>
+        <div class="glow-ball one" id="ball1"></div>
+        <div class="glow-ball two" id="ball2"></div>
+        <div class="glow-ball three" id="ball3"></div>
     </div>
 
     <!-- UI/UX Designer Content Layer -->
@@ -192,6 +171,60 @@
             <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
         </div>
     </div>
+
+    <!-- Ultra-smooth fluid mouse interaction script -->
+    <script>
+        const ball1 = document.getElementById('ball1');
+        const ball2 = document.getElementById('ball2');
+        const ball3 = document.getElementById('ball3');
+
+        // Track targets (mouse position) and current actual locations
+        let mouseX = 0, mouseY = 0;
+        let currentX1 = 0, currentY1 = 0;
+        let currentX2 = 0, currentY2 = 0;
+        let currentX3 = 0, currentY3 = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            // Normalize mouse coords relative to window center (-0.5 to 0.5)
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+
+        function animate() {
+            // Adjust the multiplier for travel distance. 
+            // Ball 1 moves standard, Ball 2 inverse, Ball 3 subtle offset.
+            const targetX1 = mouseX * 180;
+            const targetY1 = mouseY * 120;
+            
+            const targetX2 = mouseX * -150;
+            const targetY2 = mouseY * -150;
+            
+            const targetX3 = mouseX * 100;
+            const targetY3 = mouseY * 190;
+
+            // Fluid easing factor (lower number = smoother, heavier lag)
+            const ease = 0.04;
+
+            currentX1 += (targetX1 - currentX1) * ease;
+            currentY1 += (targetY1 - currentY1) * ease;
+
+            currentX2 += (targetX2 - currentX2) * ease;
+            currentY2 += (targetY2 - currentY2) * ease;
+
+            currentX3 += (targetX3 - currentX3) * ease;
+            currentY3 += (targetY3 - currentY3) * ease;
+
+            // Render updates using high-performance 3D translate
+            ball1.style.transform = `translate3d(${currentX1}px, ${currentY1}px, 0)`;
+            ball2.style.transform = `translate3d(${currentX2}px, ${currentY2}px, 0)`;
+            ball3.style.transform = `translate3d(${currentX3}px, ${currentY3}px, 0)`;
+
+            requestAnimationFrame(animate);
+        }
+
+        // Start the elegant requestAnimationFrame loop
+        animate();
+    </script>
 
 </body>
 </html>

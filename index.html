@@ -1,133 +1,298 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vysakh Quest</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="style.css">
+<title>Vysakh's Quest</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Press Start 2P', cursive;
+background:#0f172a;
+overflow:hidden;
+}
+
+.world{
+width:100vw;
+height:100vh;
+position:relative;
+background:#6ecbf5;
+overflow:hidden;
+}
+
+.sun{
+position:absolute;
+top:50px;
+right:120px;
+width:90px;
+height:90px;
+background:#ffe45c;
+border:5px solid #000;
+border-radius:50%;
+}
+
+.cloud{
+position:absolute;
+background:white;
+border-radius:40px;
+}
+
+.cloud1{
+top:90px;
+left:120px;
+width:140px;
+height:50px;
+}
+
+.cloud2{
+top:170px;
+right:300px;
+width:180px;
+height:60px;
+}
+
+.title{
+position:absolute;
+top:80px;
+width:100%;
+text-align:center;
+}
+
+.title h1{
+font-size:70px;
+color:#ffd800;
+text-shadow:8px 8px #000;
+}
+
+.title h2{
+margin-top:20px;
+color:white;
+text-shadow:4px 4px #000;
+}
+
+.title p{
+margin-top:35px;
+color:white;
+font-size:14px;
+line-height:2;
+text-shadow:3px 3px #000;
+}
+
+.hero{
+position:absolute;
+bottom:160px;
+left:50%;
+transform:translateX(-50%);
+width:260px;
+animation:float 2s infinite ease-in-out;
+}
+
+.hero img{
+width:100%;
+}
+
+@keyframes float{
+0%,100%{transform:translateX(-50%) translateY(0);}
+50%{transform:translateX(-50%) translateY(-10px);}
+}
+
+.hud{
+position:absolute;
+top:20px;
+left:20px;
+background:white;
+border:5px solid black;
+padding:20px;
+width:280px;
+}
+
+.hud h3{
+font-size:14px;
+margin-bottom:15px;
+}
+
+.counter{
+margin-top:15px;
+font-size:14px;
+color:#1d4ed8;
+}
+
+.quest-box{
+position:absolute;
+top:20px;
+right:20px;
+background:white;
+border:5px solid black;
+padding:20px;
+width:320px;
+}
+
+.quest-box p{
+font-size:12px;
+line-height:2;
+}
+
+.start-btn{
+position:absolute;
+left:50%;
+top:430px;
+transform:translateX(-50%);
+padding:25px 50px;
+font-family:'Press Start 2P';
+font-size:18px;
+background:#ffd800;
+border:5px solid black;
+cursor:pointer;
+}
+
+.start-btn:hover{
+transform:translateX(-50%) scale(1.05);
+}
+
+.grass{
+position:absolute;
+bottom:120px;
+height:40px;
+width:100%;
+background:#58c14d;
+border-top:5px solid black;
+}
+
+.ground{
+position:absolute;
+bottom:0;
+height:120px;
+width:100%;
+background:
+repeating-linear-gradient(
+90deg,
+#8b5a2b,
+#8b5a2b 20px,
+#996633 20px,
+#996633 40px
+);
+}
+
+.portal{
+position:absolute;
+right:120px;
+bottom:150px;
+width:120px;
+height:120px;
+border:6px solid black;
+border-radius:50%;
+background:#7dd3fc;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:12px;
+text-align:center;
+}
+
+.contacts{
+display:none;
+position:absolute;
+bottom:140px;
+right:20px;
+background:white;
+border:5px solid black;
+padding:20px;
+width:350px;
+}
+
+.contacts a{
+display:block;
+margin:12px 0;
+color:black;
+text-decoration:none;
+}
+
+.show{
+display:block;
+}
+
+</style>
 </head>
+
 <body>
 
-  <!-- START SCREEN -->
+<div class="world">
 
-  <section id="start-screen">
+<div class="sun"></div>
 
-    <div class="logo-block">
+<div class="cloud cloud1"></div>
+<div class="cloud cloud2"></div>
 
-      <div class="pixel-badge">
-        PORTFOLIO REBUILD IN PROGRESS
-      </div>
+<div class="hud">
+<h3>VYSAKH'S QUEST</h3>
+<div>Level 99 UI/UX Designer</div>
+<div class="counter">Artifacts Collected: 0 / 24</div>
+</div>
 
-      <h1>
-        VYSAKH QUEST
-      </h1>
+<div class="quest-box">
+<p>
+MISSION:
+<br><br>
+Build exceptional user experiences.
+<br><br>
+Current Status:
+<br>
+Portfolio redesign in progress...
+</p>
+</div>
 
-      <h2>
-        UI/UX DESIGNER
-      </h2>
+<div class="title">
+<h1>VYSAKH</h1>
+<h2>RETRO QUEST</h2>
+<p>
+Website currently being redesigned.
+<br>
+A legendary portfolio is loading...
+</p>
+</div>
 
-      <p>
-        Crafting products, systems and experiences.
-      </p>
+<button class="start-btn" onclick="unlockPortal()">
+PRESS START
+</button>
 
-      <button id="start-btn">
-        PRESS START
-      </button>
+<div class="hero">
+<img src="avatar.png" alt="Vysakh">
+</div>
 
-    </div>
+<div class="portal">
+CONTACT
+PORTAL
+</div>
 
-  </section>
+<div id="contacts" class="contacts">
+<a href="mailto:vysakh.official98@gmail.com">📧 Email</a>
+<a href="https://wa.me/917022017654">📱 WhatsApp</a>
+<a href="https://www.behance.net/Vysakh_98">🎨 Behance</a>
+<a href="https://www.linkedin.com/in/vysakhdesigns/">💼 LinkedIn</a>
+</div>
 
-  <!-- GAME WORLD -->
+<div class="grass"></div>
+<div class="ground"></div>
 
-  <main id="world">
+</div>
 
-    <!-- SKY -->
+<script>
 
-    <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
-    <div class="cloud cloud-3"></div>
+function unlockPortal(){
+document.getElementById("contacts").classList.toggle("show");
+}
 
-    <!-- HERO -->
-
-    <section class="hero-zone">
-
-      <div class="avatar-card">
-
-        <img src="avatar.png" alt="Vysakh">
-
-      </div>
-
-      <div class="intro-card">
-
-        <h3>Hi, I'm Vysakh.</h3>
-
-        <p>
-          My portfolio is currently being rebuilt.
-          Until then, explore the world below
-          and discover what I do.
-        </p>
-
-      </div>
-
-    </section>
-
-    <!-- DESTINATIONS -->
-
-    <section class="destinations">
-
-      <div class="destination-card" data-target="research">
-        🔍
-        <span>Research Lab</span>
-      </div>
-
-      <div class="destination-card" data-target="design">
-        🎨
-        <span>Design Castle</span>
-      </div>
-
-      <div class="destination-card" data-target="strategy">
-        📈
-        <span>Strategy Tower</span>
-      </div>
-
-      <div class="destination-card" data-target="contact">
-        📬
-        <span>Contact Portal</span>
-      </div>
-
-    </section>
-
-    <!-- INFO PANEL -->
-
-    <section id="info-panel">
-
-      <h3>Welcome</h3>
-
-      <p>
-        Select a destination to begin exploring.
-      </p>
-
-    </section>
-
-    <div class="grass"></div>
-    <div class="ground"></div>
-
-  </main>
-  
-<section id="character-section">
-
-    <h2>Character Profile</h2>
-
-    <p>
-        Congratulations.
-        JavaScript is working.
-    </p>
-
-</section>
-  
-  <script src="script.js"></script>
+</script>
 
 </body>
 </html>

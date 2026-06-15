@@ -164,7 +164,6 @@
             text-transform: uppercase;
         }
 
-        /* Two-layer layout split for light sweep */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
@@ -254,35 +253,40 @@
             50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
         }
 
-        /* --- Media Queries (Refining Mobile Layout Controls) --- */
+        /* --- Media Queries --- */
         @media (max-width: 600px) {
-            /* STRICT ADJUSTMENT: Adjust background scale layout constraints for mobile.
-               Optimizing the blur and expansion properties so shapes aren't zeroed out by heavy filters.
-            */
+            /* FIXED: Re-built background layer specifically for mobile rendering pipelines */
             .bg-glow-container {
-                filter: blur(80px); /* Lowered blur threshold lets colors survive on small canvases */
-                opacity: 0.65; /* Enhanced opacity to counteract standard mobile panel brightness */
+                filter: blur(110px); 
+                opacity: 0.75; /* Boosted base layer opacity to match desktop vividness */
+            }
+
+            .glow-ball {
+                mix-blend-mode: normal; /* Disables problematic screen blending on mobile web viewports */
             }
 
             .glow-ball.one {
-                width: 120vw; /* Scaled up bounds prevent the color core from breaking up inside the layout container */
-                height: 120vw;
-                top: -30%;
-                left: -20%;
+                width: 130vw; 
+                height: 130vw;
+                top: -25%;
+                left: -30%;
+                background: radial-gradient(circle, rgba(74, 144, 226, 0.45) 0%, rgba(0,0,0,0) 70%);
             }
 
             .glow-ball.two {
-                width: 110vw;
-                height: 110vw;
+                width: 120vw;
+                height: 120vw;
                 bottom: -20%;
-                right: -20%;
+                right: -25%;
+                background: radial-gradient(circle, rgba(155, 81, 224, 0.4) 0%, rgba(0,0,0,0) 70%);
             }
 
             .glow-ball.three {
-                width: 90vw;
-                height: 90vw;
+                width: 100vw;
+                height: 100vw;
                 top: 20%;
-                left: 5%;
+                left: 0%;
+                background: radial-gradient(circle, rgba(224, 81, 184, 0.25) 0%, rgba(0,0,0,0) 70%);
             }
 
             h1 { 

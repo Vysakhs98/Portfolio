@@ -1,147 +1,160 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A playful retro error page for Vysakh S, UI/UX Designer."
-    />
-    <title>Level Not Found | Vysakh S</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <a class="skip-link" href="#error-panel">Skip to error details</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolving Into Something New</title>
+    <style>
+        /* --- Reset & Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    <main class="page-shell" aria-label="Retro game error page">
-      <header class="topbar" aria-label="Game status">
-        <div class="brand-lockup">
-          <span class="pixel-dot" aria-hidden="true"></span>
-          <span>Vysakh S</span>
-        </div>
-        <div class="hud-group" aria-live="polite">
-          <span>Ideas Recovered</span>
-          <strong><span id="score">0</span>/<span id="total">8</span></strong>
-        </div>
-        <div class="hud-group status-chip">
-          <span>Status</span>
-          <strong id="status-text">Standby</strong>
-        </div>
-      </header>
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Strict no-scroll */
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0b0d10; /* Deep, premium dark base */
+            color: #f0f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-      <section class="game-frame" aria-label="Playable pixel landscape">
-        <div class="start-screen" id="start-screen">
-          <p class="eyebrow">Error World</p>
-          <h1>404</h1>
-          <h2>Level Not Found</h2>
-          <p>
-            This route wandered off-map. Help Vysakh recover the missing design
-            ideas and restore the path.
-          </p>
-          <button class="start-button" id="start-button" type="button">
-            Press Start
-          </button>
-        </div>
+        /* --- Gemini-Inspired Moving Background --- */
+        .bg-glow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            filter: blur(80px); /* Blends the shifting shapes into a smooth aura */
+            opacity: 0.6;
+        }
 
-        <div
-          class="world"
-          id="world"
-          tabindex="0"
-          role="application"
-          aria-label="Move Vysakh with arrow keys, WASD, or the on-screen controls."
-        >
-          <div class="sun" aria-hidden="true"></div>
-          <div class="cloud cloud-one" aria-hidden="true"></div>
-          <div class="cloud cloud-two" aria-hidden="true"></div>
-          <div class="cloud cloud-three" aria-hidden="true"></div>
-          <div class="hill hill-back" aria-hidden="true"></div>
-          <div class="hill hill-front" aria-hidden="true"></div>
+        .glow-ball {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            animation: float-around infinite alternate ease-in-out;
+        }
 
-          <div class="level-label" aria-hidden="true">
-            <span>404</span>
-            <strong>missing route</strong>
-          </div>
+        /* Ambient Aura 1: Deep Indigo */
+        .glow-ball.one {
+            width: 60vw;
+            height: 60vw;
+            top: -20%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.4) 0%, rgba(0,0,0,0) 70%);
+            animation-duration: 12s;
+        }
 
-          <div class="collectible-layer" id="collectible-layer"></div>
+        /* Ambient Aura 2: Gemini Purple/Violet */
+        .glow-ball.two {
+            width: 50vw;
+            height: 50vw;
+            bottom: -10%;
+            right: -10%;
+            background: radial-gradient(circle, rgba(155, 81, 224, 0.35) 0%, rgba(0,0,0,0) 70%);
+            animation-duration: 18s;
+            animation-delay: -4s;
+        }
 
-          <button class="portal" id="portal" type="button" aria-label="Open home portal">
-            <span class="portal-core" aria-hidden="true"></span>
-            <span class="portal-label">Home</span>
-          </button>
+        /* Ambient Aura 3: Soft Cyan/Teal Highlight */
+        .glow-ball.three {
+            width: 40vw;
+            height: 40vw;
+            top: 30%;
+            left: 40%;
+            background: radial-gradient(circle, rgba(80, 227, 194, 0.2) 0%, rgba(0,0,0,0) 70%);
+            animation-duration: 15s;
+            animation-delay: -2s;
+        }
 
-          <div class="avatar" id="avatar" role="img" aria-label="Pixel avatar of Vysakh">
-            <div class="speech" id="speech">Press start.</div>
-            <div class="avatar-shadow" aria-hidden="true"></div>
-            <div class="avatar-sprite" aria-hidden="true">
-              <span class="hair"></span>
-              <span class="face"></span>
-              <span class="eye eye-left"></span>
-              <span class="eye eye-right"></span>
-              <span class="body"></span>
-              <span class="arm arm-left"></span>
-              <span class="arm arm-right"></span>
-              <span class="leg leg-left"></span>
-              <span class="leg leg-right"></span>
-            </div>
-          </div>
+        @keyframes float-around {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+            50% {
+                transform: translate(40px, -60px) scale(1.1);
+            }
+            100% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
 
-          <div class="ground" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-      </section>
+        /* --- Elegant Minimal Content Layer --- */
+        main {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+        }
 
-      <section class="lower-panel" id="error-panel" aria-label="Error details and actions">
-        <div class="message-panel">
-          <p class="panel-label">Quest Log</p>
-          <h2 id="panel-title">Route failed to load.</h2>
-          <p id="panel-copy">
-            You found a page that does not exist yet. Move through the landscape
-            to recover eight floating design ideas.
-          </p>
-        </div>
+        /* Minimal animated icon/accent */
+        .accent-spark {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #9b51e0, #4a90e2);
+            clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%);
+            animation: pulse 3s infinite ease-in-out;
+        }
 
-        <nav class="action-row" aria-label="Error page actions">
-          <a class="action-link primary" href="/" aria-label="Return to homepage">
-            Retry Home
-          </a>
-          <a class="action-link" href="mailto:vysakh.official98@gmail.com">
-            Contact
-          </a>
-          <a
-            class="action-link"
-            href="https://www.behance.net/Vysakh_98"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Behance
-          </a>
-          <a
-            class="action-link"
-            href="https://www.linkedin.com/in/vysakhdesigns/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            LinkedIn
-          </a>
-        </nav>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 8px rgba(155,81,224,0.6)); }
+        }
 
-        <div class="controls" aria-label="Movement controls">
-          <button type="button" data-direction="up" aria-label="Move up">Up</button>
-          <button type="button" data-direction="left" aria-label="Move left">Left</button>
-          <button type="button" data-direction="down" aria-label="Move down">Down</button>
-          <button type="button" data-direction="right" aria-label="Move right">Right</button>
-        </div>
-      </section>
+        /* Classy Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+            line-height: 1.2;
+        }
 
-      <div class="achievement" id="achievement" role="status" aria-live="polite">
-        <span>Achievement</span>
-        <strong id="achievement-title">Curious Designer</strong>
-      </div>
+        p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #9aa0a6; /* Clean, legible muted gray */
+            letter-spacing: 0.01em;
+        }
+
+        /* Subtly fading in content on load */
+        .fade-in {
+            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow-container">
+        <div class="glow-ball one"></div>
+        <div class="glow-ball two"></div>
+        <div class="glow-ball three"></div>
+    </div>
+
+    <main class="fade-in">
+        <div class="accent-spark"></div>
+        <h1>We’re refining our digital space.</h1>
+        <p>Our website is currently undergoing a thoughtful redesign to bring you an elevated experience. We will be back online soon.</p>
     </main>
 
-    <script src="script.js"></script>
-  </body>
+</body>
 </html>

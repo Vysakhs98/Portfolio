@@ -25,7 +25,7 @@
             align-items: center;
         }
 
-        /* --- Ambient Motion Background (100% Mobile Safe) --- */
+        /* --- Ambient Motion Background --- */
         .bg-glow-container {
             position: absolute;
             top: 0;
@@ -47,7 +47,6 @@
             will-change: transform;
         }
 
-        /* Scaled using viewport-width units so they resize dynamically with screens */
         .glow-ball.one {
             width: 65vw;
             height: 65vw;
@@ -173,7 +172,7 @@
             display: inline-block;
             position: relative;
             color: rgb(165, 173, 184);
-            white-space: nowrap; /* Prevents name tracking lines from breaking mid-sweep on small viewports */
+            white-space: nowrap; 
         }
 
         .brand-owner::after {
@@ -257,8 +256,37 @@
 
         /* --- Media Queries (Refining Mobile Layout Controls) --- */
         @media (max-width: 600px) {
+            /* STRICT ADJUSTMENT: Adjust background scale layout constraints for mobile.
+               Optimizing the blur and expansion properties so shapes aren't zeroed out by heavy filters.
+            */
+            .bg-glow-container {
+                filter: blur(80px); /* Lowered blur threshold lets colors survive on small canvases */
+                opacity: 0.65; /* Enhanced opacity to counteract standard mobile panel brightness */
+            }
+
+            .glow-ball.one {
+                width: 120vw; /* Scaled up bounds prevent the color core from breaking up inside the layout container */
+                height: 120vw;
+                top: -30%;
+                left: -20%;
+            }
+
+            .glow-ball.two {
+                width: 110vw;
+                height: 110vw;
+                bottom: -20%;
+                right: -20%;
+            }
+
+            .glow-ball.three {
+                width: 90vw;
+                height: 90vw;
+                top: 20%;
+                left: 5%;
+            }
+
             h1 { 
-                font-size: 1.85rem; /* Downscaled fluid heading prevents line overcrowding */
+                font-size: 1.85rem; 
                 margin-bottom: 1rem;
             }
             
@@ -267,7 +295,6 @@
                 margin-bottom: 2rem;
             }
 
-            /* Adjust header positioning and split items vertically to avoid overlaps */
             .utility-header { 
                 flex-direction: column; 
                 gap: 0.6rem; 
@@ -275,7 +302,6 @@
                 padding: 0 1rem;
             }
 
-            /* Convert buttons to block format for effortless thumb tapping targets */
             .links-container { 
                 flex-direction: column; 
                 width: 100%; 
@@ -285,7 +311,7 @@
             .btn { 
                 justify-content: center; 
                 width: 100%;
-                padding: 0.85rem 1rem; /* Slightly taller for mobile tap targets */
+                padding: 0.85rem 1rem; 
             }
 
             .utility-footer { 
@@ -300,7 +326,6 @@
             }
         }
 
-        /* Safety query for ultra-short mobile heights (e.g., landscape phones) */
         @media (max-height: 500px) {
             body, html { overflow-y: auto; }
             .utility-header, .utility-footer { position: relative; top: 0; bottom: 0; padding: 1.5rem 0; }

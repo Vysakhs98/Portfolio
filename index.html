@@ -168,38 +168,33 @@
             text-transform: uppercase;
         }
 
-        /* Matches time color perfectly while throwing a subtle reflection overlay layout */
+        /* Linear shine sweep restricted exactly inside text paths via background-clip mask */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
-            color: #6c727a;
-            position: relative;
-            overflow: hidden;
             display: inline-block;
-        }
-
-        /* Elegant Shimmer Element Over exact color base */
-        .brand-owner::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
+            
+            /* Text base matches clock #6c727a with a white flash gradient passing through */
             background: linear-gradient(
-                90deg,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.25) 50%,
-                rgba(255, 255, 255, 0) 100%
+                90deg, 
+                #6c727a 0%, 
+                #6c727a 40%, 
+                #ffffff 50%, 
+                #6c727a 60%, 
+                #6c727a 100%
             );
-            transform: skewX(-25deg);
-            animation: elegantSweep 4.5s ease-in-out infinite;
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            animation: elegantLetterSweep 4.5s ease-in-out infinite;
         }
 
-        @keyframes elegantSweep {
-            0% { left: -150%; }
-            25%, 100% { left: 150%; }
+        @keyframes elegantLetterSweep {
+            0% { background-position: 100% center; }
+            25%, 100% { background-position: -100% center; }
         }
 
         /* Clock Base */

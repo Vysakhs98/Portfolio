@@ -168,14 +168,14 @@
             text-transform: uppercase;
         }
 
-        /* Updated Name Light Sweep style */
+        /* FIXED: Name Light Sweep style that never disappears */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
             display: inline-block;
             
-            /* Custom tighter gradient configuration */
+            /* Custom tighter gradient layout built into a scalable multi-width canvas */
             background: linear-gradient(
                 105deg, 
                 rgba(165, 173, 184, 1) 20%, 
@@ -184,25 +184,27 @@
                 rgba(165, 173, 184, 1) 80%
             );
             
-            background-size: 200px 100%;
+            /* Broad background canvas scale prevents solid silver limits from cropping out */
+            background-size: 300% 100%;
             background-repeat: no-repeat;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* New custom snap timing layout curve */
+            /* Custom crisp snap timeline curve layout */
             animation: elegantSweep 4.5s cubic-bezier(0.0, 1, 0.5, 1) infinite;
         }
 
         @keyframes elegantSweep {
+            /* Shifts the white streak into resting visibility position boundaries */
             0% { 
-                background-position: -120px center; 
+                background-position: 150% center; 
             }
             30% { 
-                background-position: 180px center; 
+                background-position: -50% center; 
             }
             100% { 
-                background-position: 180px center; 
+                background-position: -50% center; 
             }
         }
 

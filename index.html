@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vysakh | Will be back soon</title>
+    <title>Vysakh | Be back soon</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2319171d'/%3E%3Ctext x='50%25' y='55%25' font-family='-apple-system, sans-serif' font-weight='900' font-size='14' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EV%3C/text%3E%3C/svg%3E">
     <style>
         /* --- Reset & Base Styles --- */
@@ -102,7 +102,6 @@
         .delay-0 { animation-delay: 0.1s; }
         .delay-1 { animation-delay: 0.25s; }
         .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.55s; }
 
         /* Typography */
         h1 {
@@ -119,37 +118,7 @@
             font-weight: 300;
             line-height: 1.6;
             color: #9aa0a6; /* Clean, modern muted gray */
-            margin-bottom: 1.8rem; /* Adjusted for the new badge placement */
-        }
-
-        /* --- Availability Badge --- */
-        .availability-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 0.45rem 0.9rem;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #a1a7b0;
-            letter-spacing: 0.02em;
             margin-bottom: 2.5rem;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #34c759;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #34c759;
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
         }
 
         /* --- Elegant Action Buttons --- */
@@ -184,7 +153,7 @@
             box-shadow: 0 4px 15px rgba(155, 81, 224, 0.1);
         }
 
-        /* --- Header & Footer Utilities --- */
+        /* --- Top Utilities (Header Placement) --- */
         .utility-header {
             position: absolute;
             top: 2rem;
@@ -192,7 +161,8 @@
             width: 100%;
             padding: 0 2.5rem;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             z-index: 3;
             font-size: 0.8rem;
             font-weight: 400;
@@ -201,6 +171,7 @@
             text-transform: uppercase;
         }
 
+        /* --- Bottom Utilities (Footer Placement) --- */
         .utility-footer {
             position: absolute;
             bottom: 2rem;
@@ -208,12 +179,42 @@
             width: 100%;
             padding: 0 2.5rem;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
             z-index: 3;
             font-size: 0.8rem;
+            text-align: center;
+        }
+
+        .description-line {
             font-weight: 300;
             color: #6c727a;
             letter-spacing: 0.02em;
+        }
+
+        /* Minimalistic Live Freelance Status Indicator */
+        .freelance-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-weight: 400;
+            color: #a1a7b0;
+            letter-spacing: 0.02em;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #34c759;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #34c759;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
         }
 
         /* Responsive adjustments */
@@ -222,14 +223,22 @@
             p { font-size: 0.95rem; }
             .links-container { flex-direction: column; width: 100%; }
             .btn { justify-content: center; }
-            .utility-header { justify-content: center; top: 1.5rem; }
-            .utility-footer { bottom: 1.5rem; text-align: center; padding: 0 1.5rem; }
+            .utility-header { 
+                flex-direction: column; 
+                gap: 0.5rem; 
+                top: 1.5rem; 
+                padding: 0 1.5rem;
+            }
+            .utility-footer { bottom: 1.5rem; padding: 0 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <header class="utility-header" id="local-clock">Bengaluru, IN — 00:00 AM</header>
+    <header class="utility-header">
+        <div class="brand-owner">Vysakh S</div>
+        <div id="local-clock">BENGALURU, IN — --:-- --</div>
+    </header>
 
     <div class="bg-glow-container">
         <div class="glow-ball one" id="ball1"></div>
@@ -238,19 +247,108 @@
     </div>
 
     <div class="content-card">
-        
         <h1 class="reveal-item delay-0">Refining my digital space.</h1>
         <p class="reveal-item delay-1">I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon.<br>And in the meantime, let's connect.</p>
 
-        <div class="reveal-item delay-2">
-            <div class="availability-badge">
-                <span class="status-dot"></span>
-                Available for freelance
-            </div>
-        </div>
-
-        <div class="links-container reveal-item delay-3">
+        <div class="links-container reveal-item delay-2">
             <button class="btn" id="email-btn" data-email="vysakh.official98@gmail.com">Email Me</button>
             <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
             <a href="https://www.behance.net/Vysakh_98" target="_blank" rel="noopener" class="btn">Behance</a>
-            <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener
+            <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+        </div>
+    </div>
+
+    <footer class="utility-footer">
+        <div class="freelance-status">
+            <span class="status-dot"></span>
+            <span>Available for freelance opportunities</span>
+        </div>
+        <div class="description-line">
+            Currently designing interfaces & exploring advanced digital interactions.
+        </div>
+    </footer>
+
+    <script>
+        // --- Ambient Background Controller ---
+        const ball1 = document.getElementById('ball1');
+        const ball2 = document.getElementById('ball2');
+        const ball3 = document.getElementById('ball3');
+
+        let mouseX = 0, mouseY = 0;
+        let currentX1 = 0, currentY1 = 0;
+        let currentX2 = 0, currentY2 = 0;
+        let currentX3 = 0, currentY3 = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+
+        function animateBackground() {
+            const targetX1 = mouseX * 180;
+            const targetY1 = mouseY * 120;
+            const targetX2 = mouseX * -150;
+            const targetY2 = mouseY * -150;
+            const targetX3 = mouseX * 100;
+            const targetY3 = mouseY * 190;
+
+            const ease = 0.04;
+
+            currentX1 += (targetX1 - currentX1) * ease;
+            currentY1 += (targetY1 - currentY1) * ease;
+            currentX2 += (targetX2 - currentX2) * ease;
+            currentY2 += (targetY2 - currentY2) * ease;
+            currentX3 += (targetX3 - currentX3) * ease;
+            currentY3 += (targetY3 - currentY3) * ease;
+
+            ball1.style.transform = `translate3d(${currentX1}px, ${currentY1}px, 0)`;
+            ball2.style.transform = `translate3d(${currentX2}px, ${currentY2}px, 0)`;
+            ball3.style.transform = `translate3d(${currentX3}px, ${currentY3}px, 0)`;
+
+            requestAnimationFrame(animateBackground);
+        }
+        animateBackground();
+
+        // --- Clipboard Micro-Interaction ---
+        const emailBtn = document.getElementById('email-btn');
+        emailBtn.addEventListener('click', () => {
+            const targetEmail = emailBtn.getAttribute('data-email');
+            navigator.clipboard.writeText(targetEmail).then(() => {
+                emailBtn.textContent = 'Copied';
+                emailBtn.style.borderColor = 'rgba(52, 199, 89, 0.4)';
+                
+                setTimeout(() => {
+                    emailBtn.textContent = 'Email Me';
+                    emailBtn.style.borderColor = '';
+                }, 2000);
+            }).catch(() => {
+                window.location.href = `mailto:${targetEmail}`;
+            });
+        });
+
+        // --- Bulletproof Manual Clock Calculation (IST / UTC +5:30) ---
+        function refreshClock() {
+            const clockNode = document.getElementById('local-clock');
+            
+            const d = new Date();
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            const istDate = new Date(utc + (3600000 * 5.5));
+
+            let hours = istDate.getHours();
+            let minutes = istDate.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            
+            const strHours = hours < 10 ? '0' + hours : hours;
+            const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+            clockNode.textContent = `BENGALURU, IN — ${strHours}:${strMinutes} ${ampm}`;
+        }
+        refreshClock();
+        setInterval(refreshClock, 1000);
+    </script>
+
+</body>
+</html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evolving Into Something New</title>
+    <title>Vysakh | Redesign Underway</title>
     <style>
-        /* --- Reset & Base Styles --- */
+        /* --- Reset & Base Settings --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -16,145 +16,193 @@
             width: 100%;
             height: 100%;
             overflow: hidden; /* Strict no-scroll */
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #0b0d10; /* Deep, premium dark base */
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background-color: #0d0b11; /* Deep rich dark violet base */
             color: #f0f4f9;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* --- Gemini-Inspired Moving Background --- */
-        .bg-glow-container {
+        /* --- Gemini Wave Sparkle Pattern & Gradient --- */
+        .background-canvas {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
-            overflow: hidden;
-            filter: blur(80px); /* Blends the shifting shapes into a smooth aura */
-            opacity: 0.6;
+            /* SVG generating a seamless cross/sparkle grid matrix */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M12 2 L13 11 L22 12 L13 13 L12 22 L11 13 L2 12 L11 11 Z' fill='%23ffffff' fill-opacity='0.15'/%3E%3C/svg%3E");
+            background-size: 28px 28px;
+            background-position: center;
+            
+            /* Masking to create the curved wave falloff seen in the image */
+            -webkit-mask-image: radial-gradient(circle at 50% 130%, black 20%, transparent 75%);
+            mask-image: radial-gradient(circle at 50% 130%, black 20%, transparent 75%);
         }
 
-        .glow-ball {
+        /* Fluid Shifting Gradient Overlay over the pattern */
+        .gradient-overlay {
             position: absolute;
-            border-radius: 50%;
-            mix-blend-mode: screen;
-            animation: float-around infinite alternate ease-in-out;
-        }
-
-        /* Ambient Aura 1: Deep Indigo */
-        .glow-ball.one {
-            width: 60vw;
-            height: 60vw;
-            top: -20%;
-            left: -10%;
-            background: radial-gradient(circle, rgba(74, 144, 226, 0.4) 0%, rgba(0,0,0,0) 70%);
-            animation-duration: 12s;
-        }
-
-        /* Ambient Aura 2: Gemini Purple/Violet */
-        .glow-ball.two {
-            width: 50vw;
-            height: 50vw;
-            bottom: -10%;
-            right: -10%;
-            background: radial-gradient(circle, rgba(155, 81, 224, 0.35) 0%, rgba(0,0,0,0) 70%);
-            animation-duration: 18s;
-            animation-delay: -4s;
-        }
-
-        /* Ambient Aura 3: Soft Cyan/Teal Highlight */
-        .glow-ball.three {
-            width: 40vw;
-            height: 40vw;
-            top: 30%;
-            left: 40%;
-            background: radial-gradient(circle, rgba(80, 227, 194, 0.2) 0%, rgba(0,0,0,0) 70%);
-            animation-duration: 15s;
-            animation-delay: -2s;
-        }
-
-        @keyframes float-around {
-            0% {
-                transform: translate(0px, 0px) scale(1);
-            }
-            50% {
-                transform: translate(40px, -60px) scale(1.1);
-            }
-            100% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
-        }
-
-        /* --- Elegant Minimal Content Layer --- */
-        main {
-            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 2;
+            mix-blend-mode: color-dodge; /* Makes the pattern glow intensely */
+            background: linear-gradient(45deg, #2c1654, #7a22cd, #9b51e0, #e051b8, #2c1654);
+            background-size: 400% 400%;
+            animation: gradientMove 12s ease infinite alternate;
+            opacity: 0.85;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Vignette to ground the design and focus center */
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            background: radial-gradient(circle at center, transparent 30%, #0d0b11 100%);
+            pointer-events: none;
+        }
+
+        /* --- UI & Content Layer --- */
+        .content-card {
+            position: relative;
+            z-index: 4;
             text-align: center;
-            padding: 2rem;
-            max-width: 600px;
+            padding: 2.5rem;
+            max-width: 580px;
+            width: 90%;
+            animation: cardReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Minimal animated icon/accent */
-        .accent-spark {
-            display: inline-block;
-            width: 24px;
+        @keyframes cardReveal {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Minimal, Smooth Loading Animation --- */
+        .loader-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 2.5rem;
+        }
+
+        .loader-bar {
+            width: 3px;
             height: 24px;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #9b51e0, #4a90e2);
-            clip-path: polygon(50% 0%, 65% 35%, 100% 50%, 65% 65%, 50% 100%, 35% 65%, 0% 50%, 35% 35%);
-            animation: pulse 3s infinite ease-in-out;
+            background: linear-gradient(to bottom, #9b51e0, #e051b8);
+            border-radius: 2px;
+            animation: wave-loading 1.2s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 8px rgba(155,81,224,0.6)); }
+        .loader-bar:nth-child(1) { animation-delay: -0.4s; }
+        .loader-bar:nth-child(2) { animation-delay: -0.2s; height: 32px; }
+        .loader-bar:nth-child(3) { animation-delay: -0.0s; height: 40px; background: linear-gradient(to bottom, #e051b8, #fff); }
+        .loader-bar:nth-child(4) { animation-delay: -0.2s; height: 32px; }
+        .loader-bar:nth-child(5) { animation-delay: -0.4s; }
+
+        @keyframes wave-loading {
+            0%, 100% { transform: scaleY(0.5); opacity: 0.3; }
+            50% { transform: scaleY(1.1); opacity: 1; filter: drop-shadow(0 0 4px rgba(224, 81, 184, 0.5)); }
         }
 
-        /* Classy Typography */
+        /* Typography */
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 400;
-            letter-spacing: -0.03em;
+            letter-spacing: -0.02em;
             margin-bottom: 1.2rem;
             color: #ffffff;
-            line-height: 1.2;
+            line-height: 1.25;
         }
 
         p {
             font-size: 1.05rem;
             font-weight: 300;
             line-height: 1.6;
-            color: #9aa0a6; /* Clean, legible muted gray */
+            color: #b0a8be;
+            margin-bottom: 3rem;
+        }
+
+        /* --- Elegant Action Buttons --- */
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            color: #e3def2;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
             letter-spacing: 0.01em;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Subtly fading in content on load */
-        .fade-in {
-            animation: fadeIn 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(155, 81, 224, 0.5);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(155, 81, 224, 0.15);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Responsive fine-tuning */
+        @media (max-width: 480px) {
+            h1 { font-size: 1.9rem; }
+            p { font-size: 0.95rem; }
+            .links-container { flex-direction: column; width: 100%; }
+            .btn { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow-container">
-        <div class="glow-ball one"></div>
-        <div class="glow-ball two"></div>
-        <div class="glow-ball three"></div>
-    </div>
+    <div class="background-canvas"></div>
+    <div class="gradient-overlay"></div>
+    <div class="vignette"></div>
 
-    <main class="fade-in">
-        <div class="accent-spark"></div>
-        <h1>I am refining my digital space.</h1>
-        <p>My website is currently undergoing a thoughtful redesign to bring you an elevated experience. I will bring it back online soon.</p>
-    </main>
+    <div class="content-card">
+        
+        <div class="loader-container">
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+            <div class="loader-bar"></div>
+        </div>
+
+        <h1>Refining my digital space.</h1>
+        <p>I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back online soon—in the meantime, let's connect.</p>
+
+        <div class="links-container">
+            <a href="mailto:vysakh.official98@gmail.com" class="btn">Email Me</a>
+            <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
+            <a href="https://www.behance.net/Vysakh_98" target="_blank" rel="noopener" class="btn">Behance</a>
+            <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+        </div>
+    </div>
 
 </body>
 </html>

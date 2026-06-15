@@ -168,43 +168,42 @@
             text-transform: uppercase;
         }
 
-        /* FIXED: Name Light Sweep style that never disappears */
+        /* FIXED: Text is locked onto a permanent silver base; the light sweep uses an independent mask overlay */
         .brand-owner {
             font-size: 0.95rem;
             font-weight: 500;
             letter-spacing: 0.06em;
             display: inline-block;
             
-            /* Custom tighter gradient layout built into a scalable multi-width canvas */
-            background: linear-gradient(
+            /* Core permanent text color—guarantees it never goes blank */
+            color: rgb(165, 173, 184);
+            -webkit-text-fill-color: rgb(165, 173, 184);
+            
+            /* Linear mask layer containing your color stops configuration */
+            -webkit-mask-image: linear-gradient(
                 105deg, 
-                rgba(165, 173, 184, 1) 20%, 
-                rgba(255, 255, 255, 1) 40%, 
-                rgba(165, 173, 184, 1) 60%,
-                rgba(165, 173, 184, 1) 80%
+                rgba(0, 0, 0, 0.6) 20%,   /* Base alpha visibility resting layer */
+                rgba(255, 255, 255, 1) 40%, /* Pure brilliant white sweep center peak */
+                rgba(0, 0, 0, 0.6) 60%, 
+                rgba(0, 0, 0, 0.6) 80%
             );
             
-            /* Broad background canvas scale prevents solid silver limits from cropping out */
-            background-size: 300% 100%;
-            background-repeat: no-repeat;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-mask-size: 300% 100%;
+            -webkit-mask-repeat: no-repeat;
             
-            /* Custom crisp snap timeline curve layout */
+            /* Your custom launch timing layout curves */
             animation: elegantSweep 4.5s cubic-bezier(0.0, 1, 0.5, 1) infinite;
         }
 
         @keyframes elegantSweep {
-            /* Shifts the white streak into resting visibility position boundaries */
             0% { 
-                background-position: 150% center; 
+                -webkit-mask-position: 150% center; 
             }
             30% { 
-                background-position: -50% center; 
+                -webkit-mask-position: -50% center; 
             }
             100% { 
-                background-position: -50% center; 
+                -webkit-mask-position: -50% center; 
             }
         }
 

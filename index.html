@@ -149,6 +149,18 @@
             box-shadow: 0 4px 15px rgba(155, 81, 224, 0.1);
         }
 
+        /* Distinct premium styling logic for the resume action pill */
+        .btn.resume-btn {
+            background: rgba(155, 81, 224, 0.06);
+            border-color: rgba(155, 81, 224, 0.2);
+            color: #ffffff;
+        }
+
+        .btn.resume-btn:hover {
+            background: rgba(155, 81, 224, 0.15);
+            border-color: rgba(155, 81, 224, 0.6);
+        }
+
         /* --- Header / Footer Structure --- */
         .utility-header {
             position: absolute;
@@ -255,14 +267,13 @@
 
         /* --- Media Queries --- */
         @media (max-width: 600px) {
-            /* FIXED: Re-built background layer specifically for mobile rendering pipelines */
             .bg-glow-container {
                 filter: blur(110px); 
-                opacity: 0.75; /* Boosted base layer opacity to match desktop vividness */
+                opacity: 0.75; 
             }
 
             .glow-ball {
-                mix-blend-mode: normal; /* Disables problematic screen blending on mobile web viewports */
+                mix-blend-mode: normal; 
             }
 
             .glow-ball.one {
@@ -355,6 +366,8 @@
         <p class="reveal-item delay-1">I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon.<br>And in the meantime, let's connect.</p>
 
         <div class="links-container reveal-item delay-2">
+            <!-- Inline download link routing directly to your local file path assets -->
+            <a href="Vysakh_S_Product_Designer_Resume_2026.pdf" download="Vysakh_S_Product_Designer_Resume_2026.pdf" class="btn resume-btn">Download Resume</a>
             <button class="btn" id="email-btn" data-email="vysakh.official98@gmail.com">Email Me</button>
             <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
             <a href="https://www.behance.net/Vysakh_98" target="_blank" rel="noopener" class="btn">Behance</a>

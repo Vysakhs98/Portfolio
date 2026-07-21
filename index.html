@@ -1,455 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vysakh | Be back soon</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2319171d'/%3E%3Ctext x='50%25' y='55%25' font-family='-apple-system, sans-serif' font-weight='900' font-size='14' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EV%3C/text%3E%3C/svg%3E">
-    <style>
-        /* --- Reset & Base Styles --- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vysakh | Be back soon</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2319171d'/%3E%3Ctext x='50%25' y='55%25' font-family='-apple-system, sans-serif' font-weight='900' font-size='14' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle'%3EV%3C/text%3E%3C/svg%3E">
+    <style>
+        /* --- Reset & Base Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden; /* Strict no-scroll constraint */
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-            background-color: #0b0d10; 
-            color: #f0f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Strict no-scroll constraint */
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            background-color: #0b0d10; 
+            color: #f0f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-        /* --- Ambient Motion Background --- */
-        .bg-glow-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-            filter: blur(130px); 
-            opacity: 0.55;
-            pointer-events: none;
-        }
+        /* --- Ambient Motion Background --- */
+        .bg-glow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            filter: blur(130px); 
+            opacity: 0.55;
+            pointer-events: none;
+        }
 
-        .glow-ball {
-            position: absolute;
-            border-radius: 50%;
-            mix-blend-mode: screen;
-            transform: translate3d(0, 0, 0); 
-            will-change: transform;
-        }
+        .glow-ball {
+            position: absolute;
+            border-radius: 50%;
+            mix-blend-mode: screen;
+            transform: translate3d(0, 0, 0); 
+            will-change: transform;
+        }
 
-        .glow-ball.one {
-            width: 65vw;
-            height: 65vw;
-            top: -20%;
-            left: -10%;
-            background: radial-gradient(circle, rgba(74, 144, 226, 0.35) 0%, rgba(0,0,0,0) 70%);
-        }
+        .glow-ball.one {
+            width: 65vw;
+            height: 65vw;
+            top: -20%;
+            left: -10%;
+            background: radial-gradient(circle, rgba(74, 144, 226, 0.35) 0%, rgba(0,0,0,0) 70%);
+        }
 
-        .glow-ball.two {
-            width: 55vw;
-            height: 55vw;
-            bottom: -15%;
-            right: -10%;
-            background: radial-gradient(circle, rgba(155, 81, 224, 0.3) 0%, rgba(0,0,0,0) 70%);
-        }
+        .glow-ball.two {
+            width: 55vw;
+            height: 55vw;
+            bottom: -15%;
+            right: -10%;
+            background: radial-gradient(circle, rgba(155, 81, 224, 0.3) 0%, rgba(0,0,0,0) 70%);
+        }
 
-        .glow-ball.three {
-            width: 45vw;
-            height: 45vw;
-            top: 25%;
-            left: 35%;
-            background: radial-gradient(circle, rgba(224, 81, 184, 0.15) 0%, rgba(0,0,0,0) 70%);
-        }
+        .glow-ball.three {
+            width: 45vw;
+            height: 45vw;
+            top: 25%;
+            left: 35%;
+            background: radial-gradient(circle, rgba(224, 81, 184, 0.15) 0%, rgba(0,0,0,0) 70%);
+        }
 
-        /* --- Content Layout --- */
-        .content-card {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 2rem;
-            max-width: 560px;
-            width: 90%;
-        }
+        /* --- Content Layout --- */
+        .content-card {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 560px;
+            width: 90%;
+        }
 
-        /* --- Motion Intros --- */
-        .reveal-item {
-            opacity: 0;
-            transform: translateY(16px);
-            animation: cubicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        /* --- Motion Intros --- */
+        .reveal-item {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: cubicReveal 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-        @keyframes cubicReveal {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes cubicReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        .delay-0 { animation-delay: 0.1s; }
-        .delay-1 { animation-delay: 0.25s; }
-        .delay-2 { animation-delay: 0.4s; }
+        .delay-0 { animation-delay: 0.1s; }
+        .delay-1 { animation-delay: 0.25s; }
+        .delay-2 { animation-delay: 0.4s; }
 
-        /* Typography */
-        h1 {
-            font-size: 2.4rem;
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.2rem;
-            color: #ffffff;
-            line-height: 1.25;
-        }
+        /* Typography */
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+            line-height: 1.25;
+        }
 
-        p {
-            font-size: 1.05rem;
-            font-weight: 300;
-            line-height: 1.6;
-            color: #9aa0a6; 
-            margin-bottom: 2.5rem;
-        }
+        p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.6;
+            color: #9aa0a6; 
+            margin-bottom: 2.5rem;
+        }
 
-        /* --- Flexible Button Architecture --- */
-        .links-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-        }
+        /* --- Flexible Button Architecture --- */
+        .links-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+        }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.35rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 100px;
-            color: #e3def2;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 400;
-            letter-spacing: 0.01em;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.35rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 100px;
+            color: #e3def2;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(155, 81, 224, 0.4);
-            color: #ffffff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(155, 81, 224, 0.1);
-        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(155, 81, 224, 0.4);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(155, 81, 224, 0.1);
+        }
 
-        /* Distinct premium styling logic for the resume action pill */
-        .btn.resume-btn {
-            background: rgba(155, 81, 224, 0.06);
-            border-color: rgba(155, 81, 224, 0.2);
-            color: #ffffff;
-        }
+        /* Distinct premium styling logic for the resume action pill */
+        .btn.resume-btn {
+            background: rgba(155, 81, 224, 0.06);
+            border-color: rgba(155, 81, 224, 0.2);
+            color: #ffffff;
+        }
 
-        .btn.resume-btn:hover {
-            background: rgba(155, 81, 224, 0.15);
-            border-color: rgba(155, 81, 224, 0.6);
-        }
+        .btn.resume-btn:hover {
+            background: rgba(155, 81, 224, 0.15);
+            border-color: rgba(155, 81, 224, 0.6);
+        }
 
-        /* --- Header / Footer Structure --- */
-        .utility-header {
-            position: absolute;
-            top: 2rem;
-            left: 0;
-            width: 100%;
-            padding: 0 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 3;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
+        /* --- Header / Footer Structure --- */
+        .utility-header {
+            position: absolute;
+            top: 2rem;
+            left: 0;
+            width: 100%;
+            padding: 0 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 3;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
 
-        .brand-owner {
-            font-size: 0.95rem;
-            font-weight: 500;
-            letter-spacing: 0.06em;
-            display: inline-block;
-            position: relative;
-            color: rgb(165, 173, 184);
-            white-space: nowrap; 
-        }
+        .brand-owner {
+            font-size: 0.95rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            display: inline-block;
+            position: relative;
+            color: rgb(165, 173, 184);
+            white-space: nowrap; 
+        }
 
-        .brand-owner::after {
-            content: "Vysakh S"; 
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(
-                105deg, 
-                rgba(255, 255, 255, 0) 20%, 
-                rgba(255, 255, 255, 1) 40%, 
-                rgba(255, 255, 255, 0) 60%,
-                rgba(255, 255, 255, 0) 80%
-            );
-            background-size: 200% 100%;
-            background-repeat: no-repeat;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: elegantSweep 4.5s cubic-bezier(0.0, 1, 0.5, 1) infinite;
-            pointer-events: none;
-        }
+        .brand-owner::after {
+            content: "Vysakh S"; 
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                105deg, 
+                rgba(255, 255, 255, 0) 20%, 
+                rgba(255, 255, 255, 1) 40%, 
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0) 80%
+            );
+            background-size: 200% 100%;
+            background-repeat: no-repeat;
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: elegantSweep 4.5s cubic-bezier(0.0, 1, 0.5, 1) infinite;
+            pointer-events: none;
+        }
 
-        @keyframes elegantSweep {
-            0% { background-position: 200% center; }
-            30% { background-position: -120% center; }
-            100% { background-position: -120% center; }
-        }
+        @keyframes elegantSweep {
+            0% { background-position: 200% center; }
+            30% { background-position: -120% center; }
+            100% { background-position: -120% center; }
+        }
 
-        #local-clock {
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: #6c727a;
-        }
+        #local-clock {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: #6c727a;
+        }
 
-        .utility-footer {
-            position: absolute;
-            bottom: 2rem;
-            left: 0;
-            width: 100%;
-            padding: 0 2.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.8rem;
-            z-index: 3;
-            font-size: 0.8rem;
-            text-align: center;
-        }
+        .utility-footer {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            width: 100%;
+            padding: 0 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 3;
+            font-size: 0.8rem;
+            text-align: center;
+        }
 
-        .description-line {
-            font-weight: 300;
-            color: #6c727a;
-            letter-spacing: 0.02em;
-        }
+        .description-line {
+            font-weight: 300;
+            color: #6c727a;
+            letter-spacing: 0.02em;
+        }
 
-        .freelance-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            font-weight: 400;
-            color: #a1a7b0;
-            letter-spacing: 0.02em;
-        }
+        .freelance-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-weight: 400;
+            color: #a1a7b0;
+            letter-spacing: 0.02em;
+        }
 
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background-color: #34c759;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #34c759;
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #34c759;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #34c759;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.6; transform: scale(0.9); }
-            50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
-        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
+        }
 
-        /* --- Media Queries --- */
-        @media (max-width: 600px) {
-            .bg-glow-container {
-                filter: blur(110px); 
-                opacity: 0.75; 
-            }
+        /* --- NEW: PDF Viewer Modal Styles --- */
+        #pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 13, 16, 0.95);
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-            .glow-ball {
-                mix-blend-mode: normal; 
-            }
+        #pdf-modal.active {
+            display: flex;
+            opacity: 1;
+        }
 
-            .glow-ball.one {
-                width: 130vw; 
-                height: 130vw;
-                top: -25%;
-                left: -30%;
-                background: radial-gradient(circle, rgba(74, 144, 226, 0.45) 0%, rgba(0,0,0,0) 70%);
-            }
+        .pdf-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 85%;
+            background: #1a1d24;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
 
-            .glow-ball.two {
-                width: 120vw;
-                height: 120vw;
-                bottom: -20%;
-                right: -25%;
-                background: radial-gradient(circle, rgba(155, 81, 224, 0.4) 0%, rgba(0,0,0,0) 70%);
-            }
+        .pdf-header {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: #0b0d10;
+        }
 
-            .glow-ball.three {
-                width: 100vw;
-                height: 100vw;
-                top: 20%;
-                left: 0%;
-                background: radial-gradient(circle, rgba(224, 81, 184, 0.25) 0%, rgba(0,0,0,0) 70%);
-            }
+        .pdf-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #f0f4f9;
+        }
 
-            h1 { 
-                font-size: 1.85rem; 
-                margin-bottom: 1rem;
-            }
-            
-            p { 
-                font-size: 0.95rem; 
-                margin-bottom: 2rem;
-            }
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
 
-            .utility-header { 
-                flex-direction: column; 
-                gap: 0.6rem; 
-                top: 1.5rem; 
-                padding: 0 1rem;
-            }
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
 
-            .links-container { 
-                flex-direction: column; 
-                width: 100%; 
-                gap: 0.65rem;
-            }
-            
-            .btn { 
-                justify-content: center; 
-                width: 100%;
-                padding: 0.85rem 1rem; 
-            }
+        .pdf-container iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+        }
 
-            .utility-footer { 
-                bottom: 1.5rem; 
-                padding: 0 1.2rem;
-                gap: 0.6rem;
-            }
+        /* --- Media Queries --- */
+        @media (max-width: 600px) {
+            .bg-glow-container {
+                filter: blur(110px); 
+                opacity: 0.75; 
+            }
 
-            .description-line {
-                font-size: 0.75rem;
-                line-height: 1.4;
-            }
-        }
+            .glow-ball {
+                mix-blend-mode: normal; 
+            }
 
-        @media (max-height: 500px) {
-            body, html { overflow-y: auto; }
-            .utility-header, .utility-footer { position: relative; top: 0; bottom: 0; padding: 1.5rem 0; }
-            .content-card { padding: 1rem 0; }
-        }
-    </style>
+            .glow-ball.one {
+                width: 130vw; 
+                height: 130vw;
+                top: -25%;
+                left: -30%;
+                background: radial-gradient(circle, rgba(74, 144, 226, 0.45) 0%, rgba(0,0,0,0) 70%);
+            }
+
+            .glow-ball.two {
+                width: 120vw;
+                height: 120vw;
+                bottom: -20%;
+                right: -25%;
+                background: radial-gradient(circle, rgba(155, 81, 224, 0.4) 0%, rgba(0,0,0,0) 70%);
+            }
+
+            .glow-ball.three {
+                width: 100vw;
+                height: 100vw;
+                top: 20%;
+                left: 0%;
+                background: radial-gradient(circle, rgba(224, 81, 184, 0.25) 0%, rgba(0,0,0,0) 70%);
+            }
+
+            h1 { 
+                font-size: 1.85rem; 
+                margin-bottom: 1rem;
+            }
+            
+            p { 
+                font-size: 0.95rem; 
+                margin-bottom: 2rem;
+            }
+
+            .utility-header { 
+                flex-direction: column; 
+                gap: 0.6rem; 
+                top: 1.5rem; 
+                padding: 0 1rem;
+            }
+
+            .links-container { 
+                flex-direction: column; 
+                width: 100%; 
+                gap: 0.65rem;
+            }
+            
+            .btn { 
+                justify-content: center; 
+                width: 100%;
+                padding: 0.85rem 1rem; 
+            }
+
+            .utility-footer { 
+                bottom: 1.5rem; 
+                padding: 0 1.2rem;
+                gap: 0.6rem;
+            }
+
+            .description-line {
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            .pdf-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
+        }
+
+        @media (max-height: 500px) {
+            body, html { overflow-y: auto; }
+            .utility-header, .utility-footer { position: relative; top: 0; bottom: 0; padding: 1.5rem 0; }
+            .content-card { padding: 1rem 0; }
+        }
+    </style>
 </head>
 <body>
 
-    <header class="utility-header">
-        <div class="brand-owner">Vysakh S</div>
-        <div id="local-clock">BENGALURU, IN — --:-- --</div>
-    </header>
+    <header class="utility-header">
+        <div class="brand-owner">Vysakh S</div>
+        <div id="local-clock">BENGALURU, IN — --:-- --</div>
+    </header>
 
-    <div class="bg-glow-container">
-        <div class="glow-ball one" id="ball1"></div>
-        <div class="glow-ball two" id="ball2"></div>
-        <div class="glow-ball three" id="ball3"></div>
-    </div>
+    <div class="bg-glow-container">
+        <div class="glow-ball one" id="ball1"></div>
+        <div class="glow-ball two" id="ball2"></div>
+        <div class="glow-ball three" id="ball3"></div>
+    </div>
 
-    <div class="content-card">
-        <h1 class="reveal-item delay-0">Refining my digital space.</h1>
-        <p class="reveal-item delay-1">I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon.<br>And in the meantime, let's connect.</p>
+    <div class="content-card">
+        <h1 class="reveal-item delay-0">Refining my digital space.</h1>
+        <p class="reveal-item delay-1">I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon.<br>And in the meantime, let's connect.</p>
 
-        <div class="links-container reveal-item delay-2">
-            <!-- Inline download link routing directly to your local file path assets -->
-            <a href="Vysakh_S_Product_Designer_Resume_2026.pdf" download="Vysakh_S_Product_Designer_Resume_2026.pdf" class="btn resume-btn">Download Resume</a>
-            <button class="btn" id="email-btn" data-email="vysakh.official98@gmail.com">Email Me</button>
-            <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
-            <a href="https://www.behance.net/Vysakh_98" target="_blank" rel="noopener" class="btn">Behance</a>
-            <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
-        </div>
-    </div>
+        <div class="links-container reveal-item delay-2">
+            <!-- NEW: View Portfolio PDF Button added here with the resume-btn highlight class -->
+            <button class="btn resume-btn" id="view-portfolio-btn">View Portfolio PDF</button>
+            <!-- Inline download link routing directly to your local file path assets -->
+            <a href="Vysakh_S_Product_Designer_Resume_2026.pdf" download="Vysakh_S_Product_Designer_Resume_2026.pdf" class="btn resume-btn">Download Resume</a>
+            <button class="btn" id="email-btn" data-email="vysakh.official98@gmail.com">Email Me</button>
+            <a href="https://wa.me/917022017654" target="_blank" rel="noopener" class="btn">WhatsApp</a>
+            <a href="https://www.behance.net/Vysakh_98" target="_blank" rel="noopener" class="btn">Behance</a>
+            <a href="https://www.linkedin.com/in/vysakhdesigns/" target="_blank" rel="noopener" class="btn">LinkedIn</a>
+        </div>
+    </div>
 
-    <footer class="utility-footer">
-        <div class="freelance-status">
-            <span class="status-dot"></span>
-            <span>Available for freelance opportunities</span>
-        </div>
-        <div class="description-line">
-            Currently designing interfaces & exploring advanced digital interactions.
-        </div>
-    </footer>
+    <footer class="utility-footer">
+        <div class="freelance-status">
+            <span class="status-dot"></span>
+            <span>Available for freelance opportunities</span>
+        </div>
+        <div class="description-line">
+            Currently designing interfaces & exploring advanced digital interactions.
+        </div>
+    </footer>
 
-    <script>
-        // --- Ambient Background Controller ---
-        const ball1 = document.getElementById('ball1');
-        const ball2 = document.getElementById('ball2');
-        const ball3 = document.getElementById('ball3');
+    <!-- NEW: PDF Viewer Modal -->
+    <div id="pdf-modal">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <span class="pdf-title">Vysakh S | Portfolio</span>
+                <button class="close-btn" id="close-pdf">Close</button>
+            </div>
+            <!-- #toolbar=0 prevents standard download/print buttons in browser PDF viewers -->
+            <iframe src="Vysakh_S_Portfolio_L.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+        </div>
+    </div>
 
-        function animateBackground(time) {
-            const t = time * 0.0004;
+    <script>
+        // --- Ambient Background Controller ---
+        const ball1 = document.getElementById('ball1');
+        const ball2 = document.getElementById('ball2');
+        const ball3 = document.getElementById('ball3');
 
-            const x1 = Math.sin(t * 0.7) * 90;
-            const y1 = Math.cos(t * 0.5) * 60;
+        function animateBackground(time) {
+            const t = time * 0.0004;
 
-            const x2 = Math.cos(t * 0.6) * -75;
-            const y2 = Math.sin(t * 0.8) * -75;
+            const x1 = Math.sin(t * 0.7) * 90;
+            const y1 = Math.cos(t * 0.5) * 60;
 
-            const x3 = Math.sin(t * 0.5) * 50;
-            const y3 = Math.cos(t * 0.7) * 95;
+            const x2 = Math.cos(t * 0.6) * -75;
+            const y2 = Math.sin(t * 0.8) * -75;
 
-            ball1.style.transform = `translate3d(${x1}px, ${y1}px, 0)`;
-            ball2.style.transform = `translate3d(${x2}px, ${y2}px, 0)`;
-            ball3.style.transform = `translate3d(${x3}px, ${y3}px, 0)`;
+            const x3 = Math.sin(t * 0.5) * 50;
+            const y3 = Math.cos(t * 0.7) * 95;
 
-            requestAnimationFrame(animateBackground);
-        }
-        requestAnimationFrame(animateBackground);
+            ball1.style.transform = `translate3d(${x1}px, ${y1}px, 0)`;
+            ball2.style.transform = `translate3d(${x2}px, ${y2}px, 0)`;
+            ball3.style.transform = `translate3d(${x3}px, ${y3}px, 0)`;
 
-        // --- Clipboard Interactivity ---
-        const emailBtn = document.getElementById('email-btn');
-        emailBtn.addEventListener('click', () => {
-            const targetEmail = emailBtn.getAttribute('data-email');
-            navigator.clipboard.writeText(targetEmail).then(() => {
-                emailBtn.textContent = 'Copied';
-                emailBtn.style.borderColor = 'rgba(52, 199, 89, 0.4)';
-                
-                setTimeout(() => {
-                    emailBtn.textContent = 'Email Me';
-                    emailBtn.style.borderColor = '';
-                }, 2000);
-            }).catch(() => {
-                window.location.href = `mailto:${targetEmail}`;
-            });
-        });
+            requestAnimationFrame(animateBackground);
+        }
+        requestAnimationFrame(animateBackground);
 
-        // --- Clock Calculation (IST / UTC +5:30) ---
-        function refreshClock() {
-            const clockNode = document.getElementById('local-clock');
-            
-            const d = new Date();
-            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-            const istDate = new Date(utc + (3600000 * 5.5));
+        // --- Clipboard Interactivity ---
+        const emailBtn = document.getElementById('email-btn');
+        emailBtn.addEventListener('click', () => {
+            const targetEmail = emailBtn.getAttribute('data-email');
+            navigator.clipboard.writeText(targetEmail).then(() => {
+                emailBtn.textContent = 'Copied';
+                emailBtn.style.borderColor = 'rgba(52, 199, 89, 0.4)';
+                
+                setTimeout(() => {
+                    emailBtn.textContent = 'Email Me';
+                    emailBtn.style.borderColor = '';
+                }, 2000);
+            }).catch(() => {
+                window.location.href = `mailto:${targetEmail}`;
+            });
+        });
 
-            let hours = istDate.getHours();
-            let minutes = istDate.getMinutes();
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+        // --- NEW: PDF Modal Logic ---
+        const viewPortfolioBtn = document.getElementById('view-portfolio-btn');
+        const pdfModal = document.getElementById('pdf-modal');
+        const closePdfBtn = document.getElementById('close-pdf');
 
-            hours = hours % 12;
-            hours = hours ? hours : 12;
-            
-            const strHours = hours < 10 ? '0' + hours : hours;
-            const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+        viewPortfolioBtn.addEventListener('click', () => {
+            pdfModal.style.display = 'flex';
+            // Slight delay to allow display:flex to apply before changing opacity for smooth transition
+            setTimeout(() => {
+                pdfModal.classList.add('active');
+            }, 10);
+        });
 
-            clockNode.textContent = `BENGALURU, IN — ${strHours}:${strMinutes} ${ampm}`;
-        }
-        refreshClock();
-        setInterval(refreshClock, 1000);
-    </script>
+        closePdfBtn.addEventListener('click', () => {
+            pdfModal.classList.remove('active');
+            setTimeout(() => {
+                pdfModal.style.display = 'none';
+            }, 300);
+        });
+
+        // --- Clock Calculation (IST / UTC +5:30) ---
+        function refreshClock() {
+            const clockNode = document.getElementById('local-clock');
+            
+            const d = new Date();
+            const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
+            const istDate = new Date(utc + (3600000 * 5.5));
+
+            let hours = istDate.getHours();
+            let minutes = istDate.getMinutes();
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            
+            const strHours = hours < 10 ? '0' + hours : hours;
+            const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+            clockNode.textContent = `BENGALURU, IN — ${strHours}:${strMinutes} ${ampm}`;
+        }
+        refreshClock();
+        setInterval(refreshClock, 1000);
+    </script>
 </body>
 </html>

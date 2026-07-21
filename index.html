@@ -265,6 +265,78 @@
             50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px #34c759; }
         }
 
+        /* --- NEW: PDF Viewer Modal Styles --- */
+        #pdf-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 13, 16, 0.95);
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #pdf-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .pdf-container {
+            width: 90%;
+            max-width: 1200px;
+            height: 85%;
+            background: #1a1d24;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .pdf-header {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: #0b0d10;
+        }
+
+        .pdf-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #f0f4f9;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .pdf-container iframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+        }
+
         /* --- Media Queries --- */
         @media (max-width: 600px) {
             .bg-glow-container {
@@ -339,6 +411,12 @@
                 font-size: 0.75rem;
                 line-height: 1.4;
             }
+            
+            .pdf-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 0;
+            }
         }
 
         @media (max-height: 500px) {
@@ -366,6 +444,8 @@
         <p class="reveal-item delay-1">I am currently restructuring my portfolio website to introduce a completely elevated creative experience. I'll be back soon.<br>And in the meantime, let's connect.</p>
 
         <div class="links-container reveal-item delay-2">
+            <!-- NEW: View Portfolio Button added here -->
+            <button class="btn" id="view-portfolio-btn">View Portfolio</button>
             <!-- Inline download link routing directly to your local file path assets -->
             <a href="Vysakh_S_Product_Designer_Resume_2026.pdf" download="Vysakh_S_Product_Designer_Resume_2026.pdf" class="btn resume-btn">Download Resume</a>
             <button class="btn" id="email-btn" data-email="vysakh.official98@gmail.com">Email Me</button>
@@ -384,6 +464,18 @@
             Currently designing interfaces & exploring advanced digital interactions.
         </div>
     </footer>
+
+    <!-- NEW: PDF Viewer Modal -->
+    <div id="pdf-modal">
+        <div class="pdf-container">
+            <div class="pdf-header">
+                <span class="pdf-title">Vysakh S | Portfolio</span>
+                <button class="close-btn" id="close-pdf">Close</button>
+            </div>
+            <!-- #toolbar=0 prevents standard download/print buttons in browser PDF viewers -->
+            <iframe src="Vysakh%20S%20Portfolio%20L.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+        </div>
+    </div>
 
     <script>
         // --- Ambient Background Controller ---
@@ -426,6 +518,26 @@
             }).catch(() => {
                 window.location.href = `mailto:${targetEmail}`;
             });
+        });
+
+        // --- NEW: PDF Modal Logic ---
+        const viewPortfolioBtn = document.getElementById('view-portfolio-btn');
+        const pdfModal = document.getElementById('pdf-modal');
+        const closePdfBtn = document.getElementById('close-pdf');
+
+        viewPortfolioBtn.addEventListener('click', () => {
+            pdfModal.style.display = 'flex';
+            // Slight delay to allow display:flex to apply before changing opacity for smooth transition
+            setTimeout(() => {
+                pdfModal.classList.add('active');
+            }, 10);
+        });
+
+        closePdfBtn.addEventListener('click', () => {
+            pdfModal.classList.remove('active');
+            setTimeout(() => {
+                pdfModal.style.display = 'none';
+            }, 300);
         });
 
         // --- Clock Calculation (IST / UTC +5:30) ---
